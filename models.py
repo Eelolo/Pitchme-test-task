@@ -29,3 +29,11 @@ class Events(db.Model):
     start_at = db.Column(db.DateTime())
     end_at = db.Column(db.DateTime())
     city_id = db.Column(db.Integer, db.ForeignKey('cities.id'))
+
+
+class EventTopics(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    topic_id = db.Column(db.Integer, db.ForeignKey('topics.id'))
+    event_id = db.Column(db.Integer, db.ForeignKey('events.id'))
+
+    # только уникальные записи, обеспечить позже
