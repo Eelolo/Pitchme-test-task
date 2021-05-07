@@ -37,3 +37,12 @@ class EventTopics(db.Model):
     event_id = db.Column(db.Integer, db.ForeignKey('events.id'))
 
     # только уникальные записи, обеспечить позже
+
+
+class SavedFilters(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    start_from = db.Column(db.DateTime())
+    start_to = db.Column(db.DateTime())
+    city_id = db.Column(db.Integer, db.ForeignKey('cities.id'))
+    topic_id = db.Column(db.Integer, db.ForeignKey('topics.id'))
