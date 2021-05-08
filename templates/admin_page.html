@@ -12,10 +12,15 @@
 <body>
     <div class="container">
         <h1>Database Tables</h1>
-        <div>
+        <div class="table-name">
             <h3>Users</h3>
         </div>
-        <table class="table">
+        <div class="table-name">
+            <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="collapse" data-target="#collapse-users">
+                Hide/Show
+            </button>
+        </div>
+        <table class="table" id="collapse-users">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">#</th>
@@ -72,10 +77,15 @@
         </table>
     </div>
     <div class="container">
-        <div>
+        <div class="table-name">
             <h3>Cities</h3>
         </div>
-        <table class="table">
+        <div class="table-name">
+            <button type="button" class="btn btn-outline-dark  btn-sm" data-toggle="collapse" data-target="#collapse-cities">
+                Hide/Show
+            </button>
+        </div>
+        <table class="table collapse in" id="collapse-cities">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">#</th>
@@ -127,10 +137,16 @@
         </table>
     </div>
     <div class="container">
-        <div>
+        <div class="table-name">
             <h3>Topics</h3>
         </div>
-        <table class="table">
+        <div class="table-name">
+            <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="collapse" data-target="#collapse-topics">
+                Hide/Show
+            </button>
+        </div>
+
+        <table class="table collapse in" id="collapse-topics">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">#</th>
@@ -182,10 +198,15 @@
         </table>
     </div>
     <div class="container">
-        <div>
+        <div class="table-name">
             <h3>Events</h3>
         </div>
-        <table class="table">
+        <div class="table-name">
+            <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="collapse" data-target="#collapse-events">
+                Hide/Show
+            </button>
+        </div>
+        <table class="table collapse in" id="collapse-events">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">#</th>
