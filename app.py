@@ -8,5 +8,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db'
 def index():
     return render_template('index.html')
 
+@app.route('/admin')
+def admin():
+    return render_template('admin_page.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
