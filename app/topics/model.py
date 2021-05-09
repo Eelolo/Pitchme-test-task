@@ -30,3 +30,12 @@ def get_topics_data():
         topics.append((topic.id, topic.name))
 
     return topics
+
+
+def update_topic(topic_id, **kwargs):
+    topic = get_topic(topic_id)
+
+    for key, value in kwargs.items():
+        setattr(topic, key, value)
+
+    db.session.commit()
