@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <title>Create/Update City</title>
+</head>
+<body>
+    {% if data %}
+    {% set header = "User Updating" %}
+    {% set name = data[1] %}
+    {% set submit = "Update" %}
+    {% else %}
+    {% set header = "User Creation" %}
+    {% set name = "" %}
+
+    {% set submit = "Create" %}
+    {% endif %}
+
+    <h1>{{ header }}</h1>
+
+    <form class="user-create" method="POST">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="name" aria-describedby="nameHelp" placeholder="Enter city name" value="{{ name }}">
+        </div>
+        <div class="confirm-btns">
+            <input type="submit" class="btn btn-outline-dark" name="submit-btn" value="{{ submit }}">
+            <input type="submit" class="btn btn-outline-dark" name="submit-btn" value="Cancel">
+        </div>
+    </form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+</body>
+</html>
