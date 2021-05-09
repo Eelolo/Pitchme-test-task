@@ -28,3 +28,18 @@ def get_saved_filter(saved_filter_id):
     saved_filter = SavedFilters.query.filter_by(id=saved_filter_id).first()
 
     return saved_filter
+
+
+def get_saved_filters_data():
+    data = SavedFilters.query.all()
+
+    saved_filters = []
+    for saved_filter in data:
+        saved_filters.append(
+            (
+                saved_filter.id, saved_filter.user_id, saved_filter.start_from,
+                saved_filter.start_to, saved_filter.city_id, saved_filter.topic_id
+            )
+        )
+
+    return saved_filters
