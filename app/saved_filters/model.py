@@ -52,3 +52,10 @@ def update_saved_filter(saved_filter_id, **kwargs):
         setattr(saved_filter, key, value)
 
     db.session.commit()
+
+
+def delete_saved_filter(saved_filter_id):
+    saved_filter = get_saved_filter(saved_filter_id)
+
+    db.session.delete(saved_filter)
+    db.session.commit()
