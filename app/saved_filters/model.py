@@ -43,3 +43,12 @@ def get_saved_filters_data():
         )
 
     return saved_filters
+
+
+def update_saved_filter(saved_filter_id, **kwargs):
+    saved_filter = get_saved_filter(saved_filter_id)
+
+    for key, value in kwargs.items():
+        setattr(saved_filter, key, value)
+
+    db.session.commit()
