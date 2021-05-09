@@ -11,3 +11,10 @@ class EventTopics(db.Model):
     def __init__(self, topic_id, event_id):
         self.topic_id = topic_id
         self.event_id = event_id
+
+
+def create_event_topic(topic_id, event_id):
+    event_topic = EventTopics(topic_id, event_id)
+
+    db.session.add(event_topic)
+    db.session.commit()
