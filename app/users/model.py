@@ -18,7 +18,7 @@ def get_users_data():
 
     users = []
     for user in data:
-        users.append((user.name, user.email))
+        users.append((user.id, user.name, user.email))
 
     return users
 
