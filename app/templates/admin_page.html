@@ -63,44 +63,22 @@
         <table class="table collapse in" id="collapse-cities">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">id</th>
                     <th scope="col">City</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
+            {% for id, city in cities %}
                 <tr>
-                    <th scope="row">1</th>
-                    <td>City 1</td>
+                    <th scope="row">{{ id }}</th>
+                    <td>{{ city }}</td>
                     <td>
                         <button type="button" class="btn btn-outline-dark btn-sm">Update</button>
                         <button type="button" class="btn btn-outline-dark btn-sm">Delete</button>
                     </td>
                 </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>City 2</td>
-                    <td>
-                        <button type="button" class="btn btn-outline-dark btn-sm">Update</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm">Delete</button>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>City 3</td>
-                    <td>
-                        <button type="button" class="btn btn-outline-dark btn-sm">Update</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm">Delete</button>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">4</th>
-                    <td>City 4</td>
-                    <td>
-                        <button type="button" class="btn btn-outline-dark btn-sm">Update</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm">Delete</button>
-                    </td>
-                </tr>
+            {% endfor %}
             </tbody>
             <tfoot>
                 <tr>

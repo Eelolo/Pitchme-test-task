@@ -4,7 +4,7 @@ from .event_topics.model import get_event_topics_data
 from .events.model import get_events_data
 from .saved_filters.model import get_saved_filters_data
 from .topics.model import get_topics_data
-from .users.model import get_users_data, create_user
+from .users.model import get_users_data
 
 main_bp = Blueprint('main', __name__)
 
