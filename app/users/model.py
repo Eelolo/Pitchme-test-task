@@ -21,3 +21,9 @@ def get_users_data():
         users.append((user.name, user.email))
 
     return users
+
+
+def get_user(user_id):
+    user = Users.query.filter_by(id=user_id).first()
+
+    return user
