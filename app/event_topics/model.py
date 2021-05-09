@@ -45,3 +45,10 @@ def update_event_topic(event_topic_id, **kwargs):
         setattr(event_topic, key, value)
 
     db.session.commit()
+
+
+def delete_event_topic(event_topic_id):
+    event_topic = get_event_topic(event_topic_id)
+
+    db.session.delete(event_topic)
+    db.session.commit()
