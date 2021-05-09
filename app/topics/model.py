@@ -14,3 +14,9 @@ def create_topic(name):
 
     db.session.add(topic)
     db.session.commit()
+
+
+def get_topic(topic_id):
+    topic = Topics.query.filter_by(id=topic_id).first()
+
+    return topic
