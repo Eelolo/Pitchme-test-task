@@ -7,3 +7,10 @@ class Topics(db.Model):
 
     def __init__(self, name):
         self.name = name
+
+
+def create_topic(name):
+    topic = Topics(name)
+
+    db.session.add(topic)
+    db.session.commit()
