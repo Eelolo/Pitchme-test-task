@@ -30,3 +30,12 @@ def get_cities_data():
         cities.append((city.id, city.name))
 
     return cities
+
+
+def update_city(city_id, **kwargs):
+    city = get_city(city_id)
+
+    for key, value in kwargs.items():
+        setattr(city, key, value)
+
+    db.session.commit()
