@@ -33,8 +33,8 @@
             {% for id, user, email in users %}
                 <tr>
                     <th scope="row">{{ id }}</th>
-                    <td>{{ user }}</td>
-                    <td>{{ email }}</td>
+                    <td scope="row">{{ user }}</td>
+                    <td scope="row">{{ email }}</td>
                     <td>
                         <button type="button" class="btn btn-outline-dark btn-sm">Update</button>
                         <button type="button" class="btn btn-outline-dark btn-sm">Delete</button>
@@ -72,7 +72,7 @@
             {% for id, city in cities %}
                 <tr>
                     <th scope="row">{{ id }}</th>
-                    <td>{{ city }}</td>
+                    <td scope="row">{{ city }}</td>
                     <td>
                         <button type="button" class="btn btn-outline-dark btn-sm">Update</button>
                         <button type="button" class="btn btn-outline-dark btn-sm">Delete</button>
@@ -111,7 +111,7 @@
             {% for id, topic in topics %}
                 <tr>
                     <th scope="row">{{ id }}</th>
-                    <td>{{ topic }}</td>
+                    <td scope="row">{{ topic }}</td>
                     <td>
                         <button type="button" class="btn btn-outline-dark btn-sm">Update</button>
                         <button type="button" class="btn btn-outline-dark btn-sm">Delete</button>
@@ -140,65 +140,81 @@
         <table class="table collapse in" id="collapse-events">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">id</th>
                     <th scope="col">Event</th>
-                    <th scope="col">City id</th>
                     <th scope="col">Description</th>
+                    <th scope="col">Start at</th>
+                    <th scope="col">End at</th>
+                    <th scope="col">City id</th>
                     <th scope="col">Actions</th>
-
                 </tr>
             </thead>
             <tbody>
+            {% for id, event, description, start_at, end_at, city_id in events %}
                 <tr>
-                    <th scope="row">1</th>
-                    <td>Event 1</td>
-                    <td>City id</td>
-                    <td>Description</td>
+                    <th scope="row">{{ id }}</th>
+                    <td scope="row">{{ event }}</td>
+                    <td scope="row">{{ description }}</td>
+                    <td scope="row">{{ start_at }}</td>
+                    <td scope="row">{{ end_at }}</td>
+                    <td scope="row">{{ city_id }}</td>
                     <td>
                         <button type="button" class="btn btn-outline-dark btn-sm">Update</button>
                         <button type="button" class="btn btn-outline-dark btn-sm">Delete</button>
                     </td>
                 </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Event 2</td>
-                    <td>City id</td>
-                    <td>Description</td>
-                    <td>
-                        <button type="button" class="btn btn-outline-dark btn-sm">Update</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm">Delete</button>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Event 3</td>
-                    <td>City id</td>
-                    <td>Description</td>
-                    <td>
-                        <button type="button" class="btn btn-outline-dark btn-sm">Update</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm">Delete</button>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">4</th>
-                    <td>Event 4</td>
-                    <td>City id</td>
-                    <td>Description</td>
-                    <td>
-                        <button type="button" class="btn btn-outline-dark btn-sm">Update</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm">Delete</button>
-                    </td>
-                </tr>
+            {% endfor %}
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="5">
+                    <td colspan="7">
                         <button type="button" class="btn btn-outline-dark">Create</button>
                     </td>
                 </tr>
             </tfoot>
         </table>
     </div>
+    <div class="container">
+        <div class="table-name">
+            <h3>Event Topics</h3>
+        </div>
+        <div class="table-name">
+            <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="collapse" data-target="#collapse-event-topics">
+                Hide/Show
+            </button>
+        </div>
+        <table class="table collapse in" id="collapse-event-topics">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">Topic id</th>
+                    <th scope="col">Event id</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for id, topic_id, event_id in event_topics %}
+                <tr>
+                    <th scope="row">{{ id }}</th>
+                    <td scope="row">{{ topic_id }}</td>
+                    <td scope="row">{{ event_id }}</td>
+                    <td>
+                        <button type="button" class="btn btn-outline-dark btn-sm">Update</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm">Delete</button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4">
+                        <button type="button" class="btn btn-outline-dark">Create</button>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../static/js/bootstrap.min.js"></script>
 </body>
