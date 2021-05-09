@@ -14,3 +14,9 @@ def create_city(name):
 
     db.session.add(city)
     db.session.commit()
+
+
+def get_city(city_id):
+    city = Cities.query.filter_by(id=city_id).first()
+
+    return city
