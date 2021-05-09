@@ -7,3 +7,10 @@ class Cities(db.Model):
 
     def __init__(self, name):
         self.name = name
+
+
+def create_city(name):
+    city = Cities(name)
+
+    db.session.add(city)
+    db.session.commit()
