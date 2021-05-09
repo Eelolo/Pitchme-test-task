@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="../static/css/bootstrap.min.css" >
-    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="/static/css/style.css">
 
     <title>Title</title>
 </head>
@@ -36,8 +36,12 @@
                     <td scope="row">{{ user }}</td>
                     <td scope="row">{{ email }}</td>
                     <td>
-                        <button type="button" class="btn btn-outline-dark btn-sm">Update</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm">Delete</button>
+                        <form action="update_user/{{ id }}/">
+                            <input type="submit" class="btn btn-outline-dark btn-sm" value="Update">
+                        </form>
+                        <form action="delete_user/{{ id }}/">
+                            <input type="submit" class="btn btn-outline-dark btn-sm" value="Delete">
+                        </form>
                     </td>
                 </tr>
             {% endfor %}
@@ -45,7 +49,9 @@
             <tfoot>
                 <tr>
                     <td colspan="4">
-                        <button type="button" class="btn btn-outline-dark">Create</button>
+                        <form action="create_user/">
+                            <input type="submit" class="btn btn-outline-dark" value="Create">
+                        </form>
                     </td>
                 </tr>
             </tfoot>
@@ -262,6 +268,6 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
 </body>
 </html>

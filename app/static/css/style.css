@@ -29,6 +29,10 @@ table td {
   width: 100%;
 }
 
+.table form {
+    display: inline-block;
+}
+
 .table-name {
     display: inline-block;
     padding-left: 1%
@@ -43,4 +47,22 @@ table td {
     position: relative;
     top: 85%;
     transform: translate(0, -15%);
+}
+
+.user-create {
+    width: 400px;
+    display: block;
+    margin: 0 auto;
+}
+
+.user-create input {
+    text-align: center;
+}
+
+.user-create .confirm-btns {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-left: 30%;
+    padding-right: 30%;
 }
