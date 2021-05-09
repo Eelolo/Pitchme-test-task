@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <title>Title</title>
+</head>
+<body>
+    {% if data %}
+    {% set header = "User Updating" %}
+    {% set name = data[1] %}
+    {% set email = data[2] %}
+    {% set psswd_placeholder = "Only if you want to change" %}
+    {% set cnfrm_psswd_placeholder = "Only if you want to change" %}
+    {% set submit = "Update" %}
+    {% else %}
+    {% set header = "User Creation" %}
+    {% set name = "" %}
+    {% set email = "" %}
+    {% set psswd_placeholder = "Enter password" %}
+    {% set cnfrm_psswd_placeholder = "Confirm password" %}
+
+    {% set submit = "Create" %}
+    {% endif %}
+
+    <h1>{{ header }}</h1>
+
+    <form class="user-create" method="POST">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="name" aria-describedby="nameHelp" placeholder="Enter name" value="{{ name }}">
+        </div>
+        <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter email" value="{{ email }}">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="{{ psswd_placeholder }}">
+        </div>
+        <div class="form-group">
+            <label for="confirm-password">Confirm Password</label>
+            <input type="password" class="form-control" id="confirm-password" name="confirm-password" placeholder="{{ cnfrm_psswd_placeholder }}">
+        </div>
+
+        <div class="confirm-btns">
+            <input type="submit" class="btn btn-outline-dark" name="submit-btn" value="{{ submit }}">
+            <input type="submit" class="btn btn-outline-dark" name="submit-btn" value="Cancel">
+        </div>
+    </form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+</body>
+</html>
