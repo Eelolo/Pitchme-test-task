@@ -18,3 +18,9 @@ def create_event_topic(topic_id, event_id):
 
     db.session.add(event_topic)
     db.session.commit()
+
+
+def get_event_topic(event_topic_id):
+    event_topic = EventTopics.query.filter_by(id=event_topic_id).first()
+
+    return event_topic
