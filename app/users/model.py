@@ -34,3 +34,12 @@ def create_user(name, email, password):
 
     db.session.add(user)
     db.session.commit()
+
+
+def update_user(user_id, **kwargs):
+    user = get_user(user_id)
+
+    for key, value in kwargs.items():
+        setattr(user, key, value)
+
+    db.session.commit()
