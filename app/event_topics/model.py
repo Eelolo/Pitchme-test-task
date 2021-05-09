@@ -24,3 +24,15 @@ def get_event_topic(event_topic_id):
     event_topic = EventTopics.query.filter_by(id=event_topic_id).first()
 
     return event_topic
+
+
+def get_event_topics_data():
+    data = EventTopics.query.all()
+
+    event_topics = []
+    for event_topic in data:
+        event_topics.append(
+            (event_topic.id, event_topic.topic_id, event_topic.event_id)
+        )
+
+    return event_topics
