@@ -43,3 +43,10 @@ def update_user(user_id, **kwargs):
         setattr(user, key, value)
 
     db.session.commit()
+
+
+def delete_user(user_id):
+    user = get_user(user_id)
+
+    db.session.delete(user)
+    db.session.commit()
