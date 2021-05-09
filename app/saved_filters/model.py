@@ -22,3 +22,9 @@ def create_saved_filter(user_id, start_from, start_to, city_id, topic_id):
 
     db.session.add(saved_filter)
     db.session.commit()
+
+
+def get_saved_filter(saved_filter_id):
+    saved_filter = SavedFilters.query.filter_by(id=saved_filter_id).first()
+
+    return saved_filter
