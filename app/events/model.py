@@ -49,3 +49,10 @@ def update_event(event_id, **kwargs):
         setattr(event, key, value)
 
     db.session.commit()
+
+
+def delete_event(event_id):
+    event = get_event(event_id)
+
+    db.session.delete(event)
+    db.session.commit()
