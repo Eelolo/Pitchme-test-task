@@ -39,3 +39,10 @@ def update_city(city_id, **kwargs):
         setattr(city, key, value)
 
     db.session.commit()
+
+
+def delete_city(city_id):
+    city = get_city(city_id)
+
+    db.session.delete(city)
+    db.session.commit()
