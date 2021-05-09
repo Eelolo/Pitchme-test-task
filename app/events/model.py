@@ -22,3 +22,9 @@ def create_event(name, description, start_at, end_at, city_id):
 
     db.session.add(event)
     db.session.commit()
+
+
+def get_event(event_id):
+    event = Events.query.filter_by(id=event_id).first()
+
+    return event
