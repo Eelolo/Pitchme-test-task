@@ -20,3 +20,13 @@ def get_city(city_id):
     city = Cities.query.filter_by(id=city_id).first()
 
     return city
+
+
+def get_cities_data():
+    data = Cities.query.all()
+
+    cities = []
+    for city in data:
+        cities.append((city.id, city.name))
+
+    return cities
