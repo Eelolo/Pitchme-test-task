@@ -15,3 +15,10 @@ class Events(db.Model):
         self.start_at = start_at
         self.end_at = end_at
         self.city_id = city_id
+
+
+def create_event(name, description, start_at, end_at, city_id):
+    event = Events(name, description, start_at, end_at, city_id)
+
+    db.session.add(event)
+    db.session.commit()
