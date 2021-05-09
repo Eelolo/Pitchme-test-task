@@ -214,6 +214,52 @@
             </tfoot>
         </table>
     </div>
+        <div class="container">
+        <div class="table-name">
+            <h3>Saved Filters</h3>
+        </div>
+        <div class="table-name">
+            <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="collapse" data-target="#collapse-saved-filters">
+                Hide/Show
+            </button>
+        </div>
+        <table class="table collapse in" id="collapse-saved-filters">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">User_id</th>
+                    <th scope="col">Start from</th>
+                    <th scope="col">Start to</th>
+                    <th scope="col">City id</th>
+                    <th scope="col">Topic id</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for id, user_id, start_from, start_to, city_id, topic_id in saved_filters %}
+                <tr>
+                    <th scope="row">{{ id }}</th>
+                    <td scope="row">{{ user_id }}</td>
+                    <td scope="row">{{ start_from }}</td>
+                    <td scope="row">{{ start_to }}</td>
+                    <td scope="row">{{ city_id }}</td>
+                    <td scope="row">{{ topic_id }}</td>
+                    <td>
+                        <button type="button" class="btn btn-outline-dark btn-sm">Update</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm">Delete</button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="7">
+                        <button type="button" class="btn btn-outline-dark">Create</button>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../static/js/bootstrap.min.js"></script>
