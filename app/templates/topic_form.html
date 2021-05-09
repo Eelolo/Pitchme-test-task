@@ -7,15 +7,15 @@
     <link rel="stylesheet" href="/static/css/bootstrap.min.css" >
     <link rel="stylesheet" href="/static/css/style.css">
 
-    <title>Create/Update City</title>
+    <title>Create/Update Topic</title>
 </head>
 <body>
     {% if data %}
-    {% set header = "City Updating" %}
+    {% set header = "Topic Updating" %}
     {% set name = data[1] %}
     {% set submit = "Update" %}
     {% else %}
-    {% set header = "City Creation" %}
+    {% set header = "Topic Creation" %}
     {% set name = "" %}
 
     {% set submit = "Create" %}
@@ -26,7 +26,7 @@
     <form class="user-create" method="POST">
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" name="name" aria-describedby="nameHelp" placeholder="Enter city name" value="{{ name }}">
+            <input type="text" class="form-control" id="name" name="name" aria-describedby="nameHelp" placeholder="Enter topic name" value="{{ name }}">
         </div>
         <div class="confirm-btns">
             <input type="submit" class="btn btn-outline-dark" name="submit-btn" value="{{ submit }}">
