@@ -36,3 +36,12 @@ def get_event_topics_data():
         )
 
     return event_topics
+
+
+def update_event_topic(event_topic_id, **kwargs):
+    event_topic = get_event_topic(event_topic_id)
+
+    for key, value in kwargs.items():
+        setattr(event_topic, key, value)
+
+    db.session.commit()
