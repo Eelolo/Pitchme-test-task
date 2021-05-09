@@ -11,3 +11,13 @@ class Users(db.Model):
         self.name = name
         self.email = email
         self.password = password
+
+
+def get_users_data():
+    data = Users.query.all()
+
+    users = []
+    for user in data:
+        users.append((user.name, user.email))
+
+    return users

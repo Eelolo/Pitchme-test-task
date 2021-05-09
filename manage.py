@@ -12,4 +12,4 @@ if __name__ == '__main__':
     app = create_app()
     app.app_context().push()
     db.create_all()
-    app.run()
+    app.run(debug=True)
