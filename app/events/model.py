@@ -28,3 +28,15 @@ def get_event(event_id):
     event = Events.query.filter_by(id=event_id).first()
 
     return event
+
+
+def get_events_data():
+    data = Events.query.all()
+
+    events = []
+    for event in data:
+        events.append(
+            (event.id, event.name, event.description, event.start_at, event.end_at, event.city_id)
+        )
+
+    return events
