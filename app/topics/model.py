@@ -20,3 +20,13 @@ def get_topic(topic_id):
     topic = Topics.query.filter_by(id=topic_id).first()
 
     return topic
+
+
+def get_topics_data():
+    data = Topics.query.all()
+
+    topics = []
+    for topic in data:
+        topics.append((topic.id, topic.name))
+
+    return topics
