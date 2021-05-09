@@ -15,3 +15,10 @@ class SavedFilters(db.Model):
         self.start_to = start_to
         self.city_id = city_id
         self.topic_id = topic_id
+
+
+def create_saved_filter(user_id, start_from, start_to, city_id, topic_id):
+    saved_filter = SavedFilters(user_id, start_from, start_to, city_id, topic_id)
+
+    db.session.add(saved_filter)
+    db.session.commit()
