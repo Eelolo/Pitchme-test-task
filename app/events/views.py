@@ -4,6 +4,7 @@ from app.cities.functions import get_cities_ids
 from app.topics.functions import get_topics_ids
 from app.views import admin_bp
 from datetime import datetime
+from app.validations import datetime_validation
 
 
 @admin_bp.route('/create_event/', methods=['GET', 'POST'])
@@ -17,11 +18,13 @@ def admin_create_event():
             description = request.form.get('description')
             topic_id = request.form.get('topic_select')
             city_id = request.form.get('city_select')
+            start_at = request.form.get('start_at')
+            end_at = request.form.get('end_at')
 
-            try:
-                start_at = datetime.strptime(request.form.get('start_at'), "%Y-%m-%d %H:%M")
-                end_at = datetime.strptime(request.form.get('end_at'), "%Y-%m-%d %H:%M")
-            except ValueError:
+            if datetime_validation(start_at) and datetime_validation(end_at):
+                start_at = datetime.strptime(start_at, "%Y-%m-%d %H:%M")
+                end_at = datetime.strptime(end_at, "%Y-%m-%d %H:%M")
+            else:
                 start_at, end_at = False, False
 
             if name and description and start_at and end_at and city_id and topic_id:
@@ -49,11 +52,13 @@ def admin_update_event(event_id):
             description = request.form.get('description')
             topic_id = request.form.get('topic_select')
             city_id = request.form.get('city_select')
+            start_at = request.form.get('start_at')
+            end_at = request.form.get('end_at')
 
-            try:
-                start_at = datetime.strptime(request.form.get('start_at'), "%Y-%m-%d %H:%M")
-                end_at = datetime.strptime(request.form.get('end_at'), "%Y-%m-%d %H:%M")
-            except ValueError:
+            if datetime_validation(start_at) and datetime_validation(end_at):
+                start_at = datetime.strptime(start_at, "%Y-%m-%d %H:%M")
+                end_at = datetime.strptime(end_at, "%Y-%m-%d %H:%M")
+            else:
                 start_at, end_at = False, False
 
             if name and description and start_at and end_at and topic_id and city_id:

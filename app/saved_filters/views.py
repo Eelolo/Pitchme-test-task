@@ -5,6 +5,7 @@ from app.users.functions import get_users_ids
 from app.topics.functions import get_topics_ids
 from app.views import admin_bp
 from datetime import datetime
+from app.validations import datetime_validation
 
 
 @admin_bp.route('/create_saved_filter/', methods=['GET', 'POST'])
@@ -18,11 +19,13 @@ def admin_create_saved_filter():
             user_id = request.form.get('user_select')
             city_id = request.form.get('city_select')
             topic_id = request.form.get('topic_select')
+            start_from = request.form.get('start_from')
+            start_to = request.form.get('start_to')
 
-            try:
-                start_from = datetime.strptime(request.form.get('start_from'), "%Y-%m-%d %H:%M")
-                start_to = datetime.strptime(request.form.get('start_to'), "%Y-%m-%d %H:%M")
-            except ValueError:
+            if datetime_validation(start_from) and datetime_validation(start_to):
+                start_from = datetime.strptime(start_from, "%Y-%m-%d %H:%M")
+                start_to = datetime.strptime(start_to, "%Y-%m-%d %H:%M")
+            else:
                 start_from, start_to = False, False
 
             if start_from and start_to:
@@ -60,11 +63,13 @@ def admin_update_saved_filter(saved_filter_id):
             user_id = request.form.get('user_select')
             city_id = request.form.get('city_select')
             topic_id = request.form.get('topic_select')
+            start_from = request.form.get('start_from')
+            start_to = request.form.get('start_to')
 
-            try:
-                start_from = datetime.strptime(request.form.get('start_from'), "%Y-%m-%d %H:%M")
-                start_to = datetime.strptime(request.form.get('start_to'), "%Y-%m-%d %H:%M")
-            except ValueError:
+            if datetime_validation(start_from) and datetime_validation(start_to):
+                start_from = datetime.strptime(start_from, "%Y-%m-%d %H:%M")
+                start_to = datetime.strptime(start_to, "%Y-%m-%d %H:%M")
+            else:
                 start_from, start_to = False, False
 
             if user_id and start_from and start_to:

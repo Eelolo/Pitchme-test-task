@@ -2,6 +2,7 @@ from flask import request, render_template, redirect
 from werkzeug.security import generate_password_hash
 from .functions import create_user, get_user, update_user, delete_user
 from app.views import admin_bp
+from app.validations import email_regex_validation, email_unique_validation
 
 
 @admin_bp.route('/create_user/', methods=['GET', 'POST'])
@@ -12,6 +13,11 @@ def admin_create_user():
             email = request.form.get('email')
             password = request.form.get('password')
             confirm_password = request.form.get('confirm-password')
+
+            if email_regex_validation(email):
+                email = email_unique_validation(email)
+            else:
+                email = False
 
             if name and email and password and password == confirm_password:
                 password = generate_password_hash(password)
@@ -35,6 +41,11 @@ def admin_update_user(user_id):
             email = request.form.get('email')
             password = request.form.get('password')
             confirm_password = request.form.get('confirm-password')
+
+            if email_regex_validation(email):
+                email = email_unique_validation(email)
+            else:
+                email = False
 
             if name and email:
                 if password and password == confirm_password:
