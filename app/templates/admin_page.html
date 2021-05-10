@@ -213,7 +213,6 @@
                     <th scope="col">id</th>
                     <th scope="col">Topic id</th>
                     <th scope="col">Event id</th>
-                    <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -222,20 +221,9 @@
                     <th scope="row">{{ id }}</th>
                     <td scope="row">{{ topic_id }}</td>
                     <td scope="row">{{ event_id }}</td>
-                    <td>
-                        <button type="button" class="btn btn-outline-dark btn-sm">Update</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm">Delete</button>
-                    </td>
                 </tr>
             {% endfor %}
             </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="4">
-                        <button type="button" class="btn btn-outline-dark">Create</button>
-                    </td>
-                </tr>
-            </tfoot>
         </table>
     </div>
         <div class="container">
