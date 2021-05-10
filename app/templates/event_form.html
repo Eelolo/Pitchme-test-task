@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+
+        <title>Create/Update City</title>
+
+        <link rel="stylesheet" href="/static/css/bootstrap.min.css" >
+        <link rel="stylesheet" href="/static/css/style.css">
+    </head>
+    <body>
+        <h1>Event creation</h1>
+
+        <form class="user-create">
+            <div class="form-group">
+                <label for="name">Event name</label>
+                <input type="text" class="form-control" id="name" placeholder="Event name">
+            </div>
+            <div class="form-group">
+                <label for="desctiption">Event Description</label>
+                <textarea class="form-control" id="desctiption" rows="3"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="start_at">Start at</label>
+                <input type="text" class="form-control" id="start_at" placeholder="%Y-%m-%d">
+            </div>
+            <div class="form-group">
+                <label for="end_at">End at</label>
+                <input type="text" class="form-control" id="end_at" placeholder="%Y-%m-%d">
+            </div>
+
+            <div class="form-group">
+                <label for="city_id">City id</label>
+                <select class="form-control" id="city_id">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+
+            <div class="confirm-btns">
+                <input type="submit" class="btn btn-outline-dark" name="submit-btn" value="Create">
+                <input type="submit" class="btn btn-outline-dark" name="submit-btn" value="Cancel">
+            </div>
+    </form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    </body>
+</html>
