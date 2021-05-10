@@ -25,6 +25,9 @@ def create_app():
     from .topics.views import admin_bp
     app.register_blueprint(admin_bp)
 
+    from .events.views import admin_bp
+    app.register_blueprint(admin_bp)
+
     db.init_app(app)
 
     return app

@@ -9,30 +9,53 @@
         <link rel="stylesheet" href="/static/css/style.css">
     </head>
     <body>
-        <h1>Event creation</h1>
 
-        <form class="user-create">
+        {% if data %}
+
+        {% set header = "Event Updating" %}
+        {% set name = data[1] %}
+        {% set description = data[2] %}
+        {% set start_at = data[3] %}
+        {% set end_at = data[4] %}
+        {% set city_id = data[5] %}
+        {% set submit = "Update" %}
+
+        {% else %}
+
+        {% set header = "Event Creation" %}
+        {% set name = "" %}
+        {% set description = "" %}
+        {% set start_at = "" %}
+        {% set end_at = "" %}
+        {% set city_id = "" %}
+        {% set submit = "Create" %}
+
+        {% endif %}
+
+        <h1>{{ header }}</h1>
+
+        <form class="model-form" method="POST">
             <div class="form-group">
                 <label for="name">Event name</label>
-                <input type="text" class="form-control" id="name" placeholder="Event name">
+                <input type="text" class="form-control" id="name" name="name" placeholder="Event name" value="{{ name }}">
             </div>
             <div class="form-group">
-                <label for="desctiption">Event Description</label>
-                <textarea class="form-control" id="desctiption" rows="3"></textarea>
+                <label for="description">Event Description</label>
+                <textarea class="form-control" id="description" name="description" rows="3">{{ description }}</textarea>
             </div>
 
             <div class="form-group">
                 <label for="start_at">Start at</label>
-                <input type="text" class="form-control" id="start_at" placeholder="%Y-%m-%d">
+                <input type="text" class="form-control" id="start_at" name="start_at" placeholder="%Y-%m-%d" value="{{ start_at }}">
             </div>
             <div class="form-group">
                 <label for="end_at">End at</label>
-                <input type="text" class="form-control" id="end_at" placeholder="%Y-%m-%d">
+                <input type="text" class="form-control" id="end_at" name="end_at" placeholder="%Y-%m-%d" value="{{ end_at }}">
             </div>
 
             <div class="form-group">
                 <label for="city_id">City id</label>
-                <select class="form-control" id="city_id">
+                <select class="form-control" id="city_id" name="city_id">
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -42,7 +65,7 @@
             </div>
 
             <div class="confirm-btns">
-                <input type="submit" class="btn btn-outline-dark" name="submit-btn" value="Create">
+                <input type="submit" class="btn btn-outline-dark" name="submit-btn" value="{{ submit }}">
                 <input type="submit" class="btn btn-outline-dark" name="submit-btn" value="Cancel">
             </div>
     </form>

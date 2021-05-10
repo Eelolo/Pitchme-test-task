@@ -49,17 +49,17 @@ table td {
     transform: translate(0, -15%);
 }
 
-.user-create {
+.model-form {
     width: 400px;
     display: block;
     margin: 0 auto;
 }
 
-.user-create input {
+.model-form input {
     text-align: center;
 }
 
-.user-create .confirm-btns {
+.model-form .confirm-btns {
     display: flex;
     justify-content: space-around;
     align-items: center;
