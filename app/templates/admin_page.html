@@ -125,8 +125,12 @@
                     <th scope="row">{{ id }}</th>
                     <td scope="row">{{ topic }}</td>
                     <td>
-                        <button type="button" class="btn btn-outline-dark btn-sm">Update</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm">Delete</button>
+                        <form action="update_topic/{{ id }}/">
+                            <input type="submit" class="btn btn-outline-dark btn-sm" value="Update">
+                        </form>
+                        <form action="delete_topic/{{ id }}/">
+                            <input type="submit" class="btn btn-outline-dark btn-sm" value="Delete">
+                        </form>
                     </td>
                 </tr>
             {% endfor %}
@@ -134,7 +138,9 @@
             <tfoot>
                 <tr>
                     <td colspan="3">
-                        <button type="button" class="btn btn-outline-dark">Create</button>
+                        <form action="create_topic/">
+                            <input type="submit" class="btn btn-outline-dark" value="Create">
+                        </form>
                     </td>
                 </tr>
             </tfoot>
