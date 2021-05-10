@@ -17,7 +17,7 @@
         {% set description = data[2] %}
         {% set start_at = data[3] %}
         {% set end_at = data[4] %}
-        {% set city_id = data[5] %}
+        {% set city_id = cities_ids.pop(cities_ids.index(data[5])) %}
         {% set submit = "Update" %}
 
         {% else %}
@@ -28,6 +28,7 @@
         {% set start_at = "" %}
         {% set end_at = "" %}
         {% set city_id = "" %}
+        {% set city_id = cities_ids.pop(0) %}
         {% set submit = "Create" %}
 
         {% endif %}
@@ -55,12 +56,13 @@
 
             <div class="form-group">
                 <label for="city_id">City id</label>
-                <select class="form-control" id="city_id" name="city_id">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                <select class="form-control" id="city_id" name="city_select">
+
+                    <option selected="selected">{{ city_id }}</option>
+                {% for city_id in cities_ids %}
+                    <option>{{ city_id }}</option>
+                {% endfor %}
+
                 </select>
             </div>
 

@@ -11,6 +11,14 @@ def get_users_data():
 
     return users
 
+def get_users_ids():
+    data = Users.query.all()
+
+    ids = []
+    for user in data:
+        ids.append(user.id)
+
+    return ids
 
 def get_user(user_id):
     user = Users.query.filter_by(id=user_id).first()

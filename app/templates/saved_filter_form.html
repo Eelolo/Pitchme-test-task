@@ -9,53 +9,77 @@
         <link rel="stylesheet" href="/static/css/style.css">
     </head>
     <body>
-        <h1>Saved Filter creation</h1>
 
-        <form class="model-form">
+        {% if data %}
+
+        {% set header = "Saved Filter Updating" %}
+        {% set start_from = data[2] %}
+        {% set start_to = data[3] %}
+        {% set user_id = users_ids.pop(users_ids.index(data[1])) %}
+        {% set city_id = cities_ids.pop(cities_ids.index(data[4])) %}
+        {% set topic_id = topics_ids.pop(topics_ids.index(data[5])) %}
+        {% set submit = "Update" %}
+
+        {% else %}
+
+        {% set header = "Saved Filter Creation" %}
+        {% set user_id = users_ids.pop(0) %}
+        {% set city_id = cities_ids.pop(0) %}
+        {% set topic_id = topics_ids.pop(0) %}
+        {% set submit = "Create" %}
+
+        {% endif %}
+
+        <h1>{{ header }}</h1>
+
+        <form class="model-form" method="POST">
             <div class="form-group">
                 <label for="user_id">User id</label>
-                <select class="form-control" id="user_id">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                <select class="form-control" id="user_id" name="user_select">
+
+                    <option selected>{{ user_id }}</option>
+                {% for user_id in users_ids %}
+                    <option>{{ user_id }}</option>
+                {% endfor %}
+
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="start_from">Start from</label>
-                <input type="text" class="form-control" id="start_from" placeholder="%Y-%m-%d">
+                <input type="text" class="form-control" id="start_from" name="start_from" placeholder="%Y-%m-%d" value="{{ start_from }}">
             </div>
             <div class="form-group">
                 <label for="start_to">Start to</label>
-                <input type="text" class="form-control" id="start_to" placeholder="%Y-%m-%d">
+                <input type="text" class="form-control" id="start_to" name="start_to" placeholder="%Y-%m-%d" value="{{ start_to }}">
             </div>
 
             <div class="form-group">
                 <label for="city_id">City id</label>
-                <select class="form-control" id="city_id">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                <select class="form-control" id="city_id" name="city_select">
+
+                    <option selected="selected">{{ city_id }}</option>
+                {% for city_id in cities_ids %}
+                    <option>{{ city_id }}</option>
+                {% endfor %}
+
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="topic_id">Topic id</label>
-                <select class="form-control" id="topic_id">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                <select class="form-control" id="topic_id" name="topic_select">
+
+                    <option selected="selected">{{ topic_id }}</option>
+                {% for topic_id in topics_ids %}
+                    <option>{{ topic_id }}</option>
+                {% endfor %}
+
                 </select>
             </div>
 
             <div class="confirm-btns">
-                <input type="submit" class="btn btn-outline-dark" name="submit-btn" value="Create">
+                <input type="submit" class="btn btn-outline-dark" name="submit-btn" value="{{ submit }}">
                 <input type="submit" class="btn btn-outline-dark" name="submit-btn" value="Cancel">
             </div>
     </form>

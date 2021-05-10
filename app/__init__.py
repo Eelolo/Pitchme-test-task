@@ -28,6 +28,9 @@ def create_app():
     from .events.views import admin_bp
     app.register_blueprint(admin_bp)
 
+    from .saved_filters.views import admin_bp
+    app.register_blueprint(admin_bp)
+
     db.init_app(app)
 
     return app

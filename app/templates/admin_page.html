@@ -269,8 +269,12 @@
                     <td scope="row">{{ city_id }}</td>
                     <td scope="row">{{ topic_id }}</td>
                     <td>
-                        <button type="button" class="btn btn-outline-dark btn-sm">Update</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm">Delete</button>
+                        <form action="update_saved_filter/{{ id }}/">
+                            <input type="submit" class="btn btn-outline-dark btn-sm" value="Update">
+                        </form>
+                        <form action="delete_saved_filter/{{ id }}/">
+                            <input type="submit" class="btn btn-outline-dark btn-sm" value="Delete">
+                        </form>
                     </td>
                 </tr>
             {% endfor %}
@@ -278,7 +282,9 @@
             <tfoot>
                 <tr>
                     <td colspan="7">
-                        <button type="button" class="btn btn-outline-dark">Create</button>
+                        <form action="create_saved_filter/">
+                            <input type="submit" class="btn btn-outline-dark" value="Create">
+                        </form>
                     </td>
                 </tr>
             </tfoot>

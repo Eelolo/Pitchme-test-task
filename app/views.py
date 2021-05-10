@@ -2,7 +2,7 @@ from flask import Blueprint, render_template
 from .cities.functions import get_cities_data
 from .event_topics.model import get_event_topics_data
 from .events.functions import get_events_data
-from .saved_filters.model import get_saved_filters_data
+from .saved_filters.functions import get_saved_filters_data
 from .topics.functions import get_topics_data
 from .users.functions import get_users_data
 
