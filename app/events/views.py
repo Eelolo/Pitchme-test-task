@@ -15,15 +15,19 @@ def admin_create_event():
         if request.form.get('submit-btn') == 'Create':
             name = request.form.get('name')
             description = request.form.get('description')
-            start_at = datetime.strptime(request.form.get('start_at'), "%Y-%m-%d %H:%M")
-            end_at = datetime.strptime(request.form.get('end_at'), "%Y-%m-%d %H:%M")
             topic_id = request.form.get('topic_select')
             city_id = request.form.get('city_select')
+
+            try:
+                start_at = datetime.strptime(request.form.get('start_at'), "%Y-%m-%d %H:%M")
+                end_at = datetime.strptime(request.form.get('end_at'), "%Y-%m-%d %H:%M")
+            except ValueError:
+                start_at, end_at = False, False
 
             if name and description and start_at and end_at and city_id and topic_id:
                 create_event(name, description, start_at, end_at, topic_id, city_id)
             else:
-                return render_template('event_form.html', cities_ids=cities_ids)
+                return render_template('event_form.html', topics_ids=topics_ids, cities_ids=cities_ids)
 
         return redirect('/admin')
 
@@ -43,10 +47,14 @@ def admin_update_event(event_id):
         if request.form.get('submit-btn') == 'Update':
             name = request.form.get('name')
             description = request.form.get('description')
-            start_at = datetime.strptime(request.form.get('start_at'), "%Y-%m-%d %H:%M")
-            end_at = datetime.strptime(request.form.get('end_at'), "%Y-%m-%d  %H:%M")
             topic_id = request.form.get('topic_select')
             city_id = request.form.get('city_select')
+
+            try:
+                start_at = datetime.strptime(request.form.get('start_at'), "%Y-%m-%d %H:%M")
+                end_at = datetime.strptime(request.form.get('end_at'), "%Y-%m-%d %H:%M")
+            except ValueError:
+                start_at, end_at = False, False
 
             if name and description and start_at and end_at and topic_id and city_id:
                     update_event(
@@ -54,7 +62,9 @@ def admin_update_event(event_id):
                         end_at=end_at, topic_id=topic_id, city_id=city_id
                     )
             else:
-                return render_template('event_form.html', data=data, cities_ids=cities_ids)
+                return render_template(
+                    'event_form.html', data=data, topics_ids=topics_ids, cities_ids=cities_ids
+                )
 
         return redirect('/admin')
 

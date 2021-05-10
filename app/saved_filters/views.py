@@ -16,10 +16,14 @@ def admin_create_saved_filter():
     if request.method == 'POST':
         if request.form.get('submit-btn') == 'Create':
             user_id = request.form.get('user_select')
-            start_from = datetime.strptime(request.form.get('start_from'), "%Y-%m-%d %H:%M")
-            start_to = datetime.strptime(request.form.get('start_to'), "%Y-%m-%d %H:%M")
             city_id = request.form.get('city_select')
             topic_id = request.form.get('topic_select')
+
+            try:
+                start_from = datetime.strptime(request.form.get('start_from'), "%Y-%m-%d %H:%M")
+                start_to = datetime.strptime(request.form.get('start_to'), "%Y-%m-%d %H:%M")
+            except ValueError:
+                start_from, start_to = False, False
 
             if start_from and start_to:
                 create_saved_filter(user_id, start_from, start_to, city_id, topic_id)
@@ -54,10 +58,14 @@ def admin_update_saved_filter(saved_filter_id):
     if request.method == 'POST':
         if request.form.get('submit-btn') == 'Update':
             user_id = request.form.get('user_select')
-            start_from = datetime.strptime(request.form.get('start_from'), "%Y-%m-%d %H:%M")
-            start_to = datetime.strptime(request.form.get('start_to'), "%Y-%m-%d %H:%M")
             city_id = request.form.get('city_select')
             topic_id = request.form.get('topic_select')
+
+            try:
+                start_from = datetime.strptime(request.form.get('start_from'), "%Y-%m-%d %H:%M")
+                start_to = datetime.strptime(request.form.get('start_to'), "%Y-%m-%d %H:%M")
+            except ValueError:
+                start_from, start_to = False, False
 
             if user_id and start_from and start_to:
                     update_saved_filter(
