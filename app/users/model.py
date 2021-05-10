@@ -7,6 +7,8 @@ class Users(db.Model):
     email = db.Column(db.String(50), unique=True)
     password = db.Column(db.String(500), nullable=True)
 
+    saved_filters = db.relationship('SavedFilters', backref='user')
+
     def __init__(self, name, email, password):
         self.name = name
         self.email = email

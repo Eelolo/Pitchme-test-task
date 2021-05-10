@@ -163,18 +163,20 @@
                     <th scope="col">Description</th>
                     <th scope="col">Start at</th>
                     <th scope="col">End at</th>
+                    <th scope="col">Topic id</th>
                     <th scope="col">City id</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
-            {% for id, event, description, start_at, end_at, city_id in events %}
+            {% for id, event, description, start_at, end_at, topic_id, city_id in events %}
                 <tr>
                     <th scope="row">{{ id }}</th>
                     <td scope="row">{{ event }}</td>
                     <td scope="row">{{ description }}</td>
                     <td scope="row">{{ start_at }}</td>
                     <td scope="row">{{ end_at }}</td>
+                    <td scope="row">{{ topic_id }}</td>
                     <td scope="row">{{ city_id }}</td>
                     <td>
                         <form action="update_event/{{ id }}/">
@@ -189,7 +191,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="7">
+                    <td colspan="8">
                         <form action="create_event/">
                             <input type="submit" class="btn btn-outline-dark" value="Create">
                         </form>
@@ -199,34 +201,6 @@
         </table>
     </div>
     <div class="container">
-        <div class="table-name">
-            <h3>Event Topics</h3>
-        </div>
-        <div class="table-name">
-            <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="collapse" data-target="#collapse-event-topics">
-                Hide/Show
-            </button>
-        </div>
-        <table class="table collapse in" id="collapse-event-topics">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">id</th>
-                    <th scope="col">Topic id</th>
-                    <th scope="col">Event id</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for id, topic_id, event_id in event_topics %}
-                <tr>
-                    <th scope="row">{{ id }}</th>
-                    <td scope="row">{{ topic_id }}</td>
-                    <td scope="row">{{ event_id }}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
-        <div class="container">
         <div class="table-name">
             <h3>Saved Filters</h3>
         </div>

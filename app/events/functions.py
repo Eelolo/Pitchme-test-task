@@ -2,8 +2,8 @@ from app import db
 from .model import Events
 
 
-def create_event(name, description, start_at, end_at, city_id):
-    event = Events(name, description, start_at, end_at, city_id)
+def create_event(name, description, start_at, end_at, topic_id, city_id):
+    event = Events(name, description, start_at, end_at, topic_id, city_id)
 
     db.session.add(event)
     db.session.commit()
@@ -21,7 +21,10 @@ def get_events_data():
     events = []
     for event in data:
         events.append(
-            (event.id, event.name, event.description, event.start_at, event.end_at, event.city_id)
+            (
+                event.id, event.name, event.description, event.start_at,
+                event.end_at, event.topic_id, event.city_id
+            )
         )
 
     return events

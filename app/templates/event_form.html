@@ -17,7 +17,8 @@
         {% set description = data[2] %}
         {% set start_at = data[3] %}
         {% set end_at = data[4] %}
-        {% set city_id = cities_ids.pop(cities_ids.index(data[5])) %}
+        {% set topic_id = topics_ids.pop(topics_ids.index(data[5])) %}
+        {% set city_id = cities_ids.pop(cities_ids.index(data[6])) %}
         {% set submit = "Update" %}
 
         {% else %}
@@ -27,7 +28,7 @@
         {% set description = "" %}
         {% set start_at = "" %}
         {% set end_at = "" %}
-        {% set city_id = "" %}
+        {% set topic_id = topics_ids.pop(0) %}
         {% set city_id = cities_ids.pop(0) %}
         {% set submit = "Create" %}
 
@@ -52,6 +53,18 @@
             <div class="form-group">
                 <label for="end_at">End at</label>
                 <input type="text" class="form-control" id="end_at" name="end_at" placeholder="%Y-%m-%d" value="{{ end_at }}">
+            </div>
+
+            <div class="form-group">
+                <label for="topic_id">Topic id</label>
+                <select class="form-control" id="topic_id" name="topic_select">
+
+                    <option selected="selected">{{ topic_id }}</option>
+                {% for topic_id in topics_ids %}
+                    <option>{{ topic_id }}</option>
+                {% endfor %}
+
+                </select>
             </div>
 
             <div class="form-group">
