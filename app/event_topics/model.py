@@ -12,6 +12,9 @@ class EventTopics(db.Model):
         self.topic_id = topic_id
         self.event_id = event_id
 
+    def __repr__(self):
+        return f"<Event Topic {self.id}>"
+
 
 def create_event_topic(topic_id, event_id):
     event_topic = EventTopics(topic_id, event_id)

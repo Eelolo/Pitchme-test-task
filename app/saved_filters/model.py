@@ -15,3 +15,6 @@ class SavedFilters(db.Model):
         self.start_to = start_to
         self.city_id = city_id
         self.topic_id = topic_id
+
+    def __repr__(self):
+        return f"<Filter {self.id}>"

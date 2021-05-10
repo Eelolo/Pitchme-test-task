@@ -7,3 +7,6 @@ class Topics(db.Model):
 
     def __init__(self, name):
         self.name = name
+
+    def __repr__(self):
+        return f"<Topic {self.name}>"

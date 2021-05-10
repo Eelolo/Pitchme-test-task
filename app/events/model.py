@@ -15,3 +15,6 @@ class Events(db.Model):
         self.start_at = start_at
         self.end_at = end_at
         self.city_id = city_id
+
+    def __repr__(self):
+        return f"<Event {self.name}>"
