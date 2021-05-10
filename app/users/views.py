@@ -13,7 +13,7 @@ def admin_create_user():
             password = request.form.get('password')
             confirm_password = request.form.get('confirm-password')
 
-            if name and email and password == confirm_password:
+            if name and email and password and password == confirm_password:
                 password = generate_password_hash(password)
                 create_user(name, email, password)
             else:
