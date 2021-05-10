@@ -80,8 +80,12 @@
                     <th scope="row">{{ id }}</th>
                     <td scope="row">{{ city }}</td>
                     <td>
-                        <button type="button" class="btn btn-outline-dark btn-sm">Update</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm">Delete</button>
+                        <form action="update_city/{{ id }}/">
+                            <input type="submit" class="btn btn-outline-dark btn-sm" value="Update">
+                        </form>
+                        <form action="delete_city/{{ id }}/">
+                            <input type="submit" class="btn btn-outline-dark btn-sm" value="Delete">
+                        </form>
                     </td>
                 </tr>
             {% endfor %}
@@ -89,7 +93,9 @@
             <tfoot>
                 <tr>
                     <td colspan="3">
-                        <button type="button" class="btn btn-outline-dark">Create</button>
+                        <form action="create_city/">
+                            <input type="submit" class="btn btn-outline-dark" value="Create">
+                        </form>
                     </td>
                 </tr>
             </tfoot>

@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from .cities.model import get_cities_data
+from .cities.functions import get_cities_data
 from .event_topics.model import get_event_topics_data
 from .events.model import get_events_data
 from .saved_filters.model import get_saved_filters_data
