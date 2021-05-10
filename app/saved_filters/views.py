@@ -16,12 +16,10 @@ def admin_create_saved_filter():
     if request.method == 'POST':
         if request.form.get('submit-btn') == 'Create':
             user_id = request.form.get('user_select')
-            start_from = datetime.strptime(request.form.get('start_from'), "%Y-%m-%d")
-            start_to = datetime.strptime(request.form.get('start_to'), "%Y-%m-%d")
+            start_from = datetime.strptime(request.form.get('start_from'), "%Y-%m-%d %H:%M")
+            start_to = datetime.strptime(request.form.get('start_to'), "%Y-%m-%d %H:%M")
             city_id = request.form.get('city_select')
             topic_id = request.form.get('topic_select')
-
-            print(user_id, city_id, topic_id)
 
             if start_from and start_to:
                 create_saved_filter(user_id, start_from, start_to, city_id, topic_id)
@@ -46,8 +44,8 @@ def admin_update_saved_filter(saved_filter_id):
     users_ids = get_users_ids()
 
     saved_filter = get_saved_filter(saved_filter_id)
-    start_from = saved_filter.start_from.strftime("%Y-%m-%d")
-    start_to = saved_filter.start_to.strftime("%Y-%m-%d")
+    start_from = saved_filter.start_from.strftime("%Y-%m-%d %H:%M")
+    start_to = saved_filter.start_to.strftime("%Y-%m-%d %H:%M")
     data = (
         saved_filter.id,  saved_filter.user_id,  start_from,
         start_to, saved_filter.city_id,  saved_filter.topic_id
@@ -56,8 +54,8 @@ def admin_update_saved_filter(saved_filter_id):
     if request.method == 'POST':
         if request.form.get('submit-btn') == 'Update':
             user_id = request.form.get('user_select')
-            start_from = datetime.strptime(request.form.get('start_from'), "%Y-%m-%d")
-            start_to = datetime.strptime(request.form.get('start_to'), "%Y-%m-%d")
+            start_from = datetime.strptime(request.form.get('start_from'), "%Y-%m-%d %H:%M")
+            start_to = datetime.strptime(request.form.get('start_to'), "%Y-%m-%d %H:%M")
             city_id = request.form.get('city_select')
             topic_id = request.form.get('topic_select')
 

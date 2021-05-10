@@ -15,8 +15,8 @@ def admin_create_event():
         if request.form.get('submit-btn') == 'Create':
             name = request.form.get('name')
             description = request.form.get('description')
-            start_at = datetime.strptime(request.form.get('start_at'), "%Y-%m-%d")
-            end_at = datetime.strptime(request.form.get('end_at'), "%Y-%m-%d")
+            start_at = datetime.strptime(request.form.get('start_at'), "%Y-%m-%d %H:%M")
+            end_at = datetime.strptime(request.form.get('end_at'), "%Y-%m-%d %H:%M")
             topic_id = request.form.get('topic_select')
             city_id = request.form.get('city_select')
 
@@ -33,8 +33,8 @@ def admin_create_event():
 @admin_bp.route('/update_event/<event_id>/', methods=['GET', 'POST'])
 def admin_update_event(event_id):
     event = get_event(event_id)
-    start_at = event.start_at.strftime("%Y-%m-%d")
-    end_at = event.end_at.strftime("%Y-%m-%d")
+    start_at = event.start_at.strftime("%Y-%m-%d %H:%M")
+    end_at = event.end_at.strftime("%Y-%m-%d %H:%M")
     data = event.id, event.name, event.description, start_at, end_at, event.topic_id , event.city_id
     topics_ids = get_topics_ids()
     cities_ids = get_cities_ids()
@@ -43,8 +43,8 @@ def admin_update_event(event_id):
         if request.form.get('submit-btn') == 'Update':
             name = request.form.get('name')
             description = request.form.get('description')
-            start_at = datetime.strptime(request.form.get('start_at'), "%Y-%m-%d")
-            end_at = datetime.strptime(request.form.get('end_at'), "%Y-%m-%d")
+            start_at = datetime.strptime(request.form.get('start_at'), "%Y-%m-%d %H:%M")
+            end_at = datetime.strptime(request.form.get('end_at'), "%Y-%m-%d  %H:%M")
             topic_id = request.form.get('topic_select')
             city_id = request.form.get('city_select')
 
