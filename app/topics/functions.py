@@ -43,10 +43,6 @@ def get_topics_names():
 
     return names
 
-def get_topic_name(topic_id):
-    topic = Topics.query.filter_by(id=topic_id).one()
-
-    return topic.name
 
 def update_topic(topic_id, **kwargs):
     topic = get_topic(topic_id)

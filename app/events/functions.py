@@ -15,19 +15,35 @@ def get_event(event_id):
     return event
 
 
-def get_events_data():
-    data = Events.query.all()
+def get_all_events():
+    events = Events.query.all()
 
-    events = []
-    for event in data:
-        events.append(
-            [
+    return events
+
+def get_events_data(ids_or_names='ids', events=None):
+    if not events and events != None:
+        return []
+    elif not events:
+        events = get_all_events()
+
+    data = []
+    for event in events:
+        if ids_or_names == 'ids':
+            fields = [
                 event.id, event.name, event.description, event.start_at,
                 event.end_at, event.topic_id, event.city_id
             ]
+        else:
+            fields = [
+                event.id, event.name, event.description, event.start_at,
+                event.end_at, event.topic.name, event.city.name
+            ]
+
+        data.append(
+            fields
         )
 
-    return events
+    return data
 
 
 def update_event(event_id, **kwargs):

@@ -65,11 +65,22 @@
     </div>
     <div class="container">
 
-        {% set topic_name = topics_names.pop(0) %}
-        {% set city_name = cities_names.pop(0) %}
+        {% if not topic_name %}
+        {% set topic_name = "Choose topic name" %}
+        {% else %}
+        {% set topic_name = topics_names.pop(topics_names.index(topic_name)) %}
+        {% set q = topics_names.insert(0, "Choose topic name") %}
+        {% endif %}
+
+        {% if not city_name %}
+        {% set city_name = "Choose city name" %}
+        {% else %}
+        {% set city_name = cities_names.pop(cities_names.index(city_name)) %}
+        {% set q = cities_names.insert(0, "Choose city name") %}
+        {% endif %}
 
         <div class="filters-form">
-            <form>
+            <form method="POST">
                 <div class="form-row">
                     <div class="col">
                         <select class="form-control" id="city_name" name="city_select">
@@ -93,10 +104,10 @@
                     </div>
 
                     <div class="col">
-                        <input type="text" class="form-control" id="start_from" name="start_to" placeholder="Start from YYYY-m-d H:M" value="{{ start_from }}">
+                        <input type="text" class="form-control" id="start_from" name="start_at" placeholder="Start at YYYY-m-d H:M" value="{{ start_at }}">
                     </div>
                     <div class="col">
-                        <input type="text" class="form-control" id="start_to" name="start_to" placeholder="Start to YYYY-m-d H:M" value="{{ start_to }}">
+                        <input type="text" class="form-control" id="start_to" name="end_at" placeholder="End at YYYY-m-d H:M" value="{{ end_at }}">
                     </div>
 
                     <div class="col">
@@ -107,67 +118,87 @@
             </form>
         </div>
         <div class="content">
-            {% for idx in range(events | length - 1) %}
+<!--            if there is one event-->
+<!--            after 9 hours of work on the project, I didn't know how to make it more beautiful :-)) -->
+            {% if events | length == 1 %}
+            <div class="row">
+                <div class="col-sm">
+                    <div class="card text-left mb-3 border-dark" style="max-width: 540px; min-width: 400px;">
+                        <div class="row no-gutters">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ events[0][1] }}</h5>
+                                <p class="card-text"><small class="text-muted">City: {{ events[0][6] }} Topic: {{ events[0][5] }}</small></p>
+                                <p class="card-text">{{ events[0][2] }}</p>
+                                <p class="card-text"><small class="text-muted">Start at: {{ events[0][3] }} End at: {{ events[0][4] }}</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+                {% for idx in range(events | length - 1) %}
 
-            {% set event_name0 = events[idx][1] %}
-            {% set topic_name0 = events[idx][5] %}
-            {% set city_name0 = events[idx][6] %}
-            {% set description0 = events[idx][2] %}
-            {% set start_at0 = events[idx][3] %}
-            {% set end_at0 = events[idx][4] %}
+                {% set event_name0 = events[idx][1] %}
+                {% set topic_name0 = events[idx][5] %}
+                {% set city_name0 =  events[idx][6] %}
+                {% set description0 = events[idx][2] %}
+                {% set start_at0 = events[idx][3] %}
+                {% set end_at0 = events[idx][4] %}
 
-            {% set event_name1 = events[idx+1][1] %}
-            {% set topic_name1 = events[idx+1][5] %}
-            {% set city_name1 = events[idx+1][6] %}
-            {% set description1 = events[idx+1][2] %}
-            {% set start_at1 = events[idx+1][3] %}
-            {% set end_at1 = events[idx+1][4] %}
+                {% set event_name1 = events[idx+1][1] %}
+                {% set topic_name1 = events[idx+1][5] %}
+                {% set city_name1 = events[idx+1][6] %}
+                {% set description1 = events[idx+1][2] %}
+                {% set start_at1 = events[idx+1][3] %}
+                {% set end_at1 = events[idx+1][4] %}
 
             {% if idx % 2 == 0 %}
-                <div class="row">
-                    <div class="col-sm">
-                        <div class="card text-left mb-3 border-dark" style="max-width: 540px; min-width: 400px;">
-                            <div class="row no-gutters">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ event_name0 }}</h5>
-                                    <p class="card-text"><small class="text-muted">City: {{ city_name0 }} Topic: {{ topic_name0 }}</small></p>
-                                    <p class="card-text">{{ description0 }}</p>
-                                    <p class="card-text"><small class="text-muted">Start at: {{ start_at0 }} End at: {{ end_at0 }}</small></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm">
-                        <div class="card text-left mb-3 border-dark" style="max-width: 540px; min-width: 400px;">
-                            <div class="row no-gutters">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ event_name1 }}</h5>
-                                    <p class="card-text"><small class="text-muted">City: {{ city_name1 }} Topic: {{ topic_name1 }}</small></p>
-                                    <p class="card-text">{{ description1 }}</p>
-                                    <p class="card-text"><small class="text-muted">Start at: {{ start_at1 }} End at: {{ end_at1 }}</small></p>
-                                </div>
+            <div class="row">
+                <div class="col-sm">
+                    <div class="card text-left mb-3 border-dark" style="max-width: 540px; min-width: 400px;">
+                        <div class="row no-gutters">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ event_name0 }}</h5>
+                                <p class="card-text"><small class="text-muted">City: {{ city_name0 }} Topic: {{ topic_name0 }}</small></p>
+                                <p class="card-text">{{ description0 }}</p>
+                                <p class="card-text"><small class="text-muted">Start at: {{ start_at0 }} End at: {{ end_at0 }}</small></p>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-sm">
+                    <div class="card text-left mb-3 border-dark" style="max-width: 540px; min-width: 400px;">
+                        <div class="row no-gutters">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ event_name1 }}</h5>
+                                <p class="card-text"><small class="text-muted">City: {{ city_name1 }} Topic: {{ topic_name1 }}</small></p>
+                                <p class="card-text">{{ description1 }}</p>
+                                <p class="card-text"><small class="text-muted">Start at: {{ start_at1 }} End at: {{ end_at1 }}</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             {% endif %}
-            {% if events | length % 2 != 0 and idx == events | length - 2%}
-                <div class="row">
-                    <div class="col-sm">
-                        <div class="card text-left mb-3 border-dark" style="max-width: 540px; min-width: 400px;">
-                            <div class="row no-gutters">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ event_name1 }}</h5>
-                                    <p class="card-text"><small class="text-muted">City: {{ city_name1 }} Topic: {{ topic_name1 }}</small></p>
-                                    <p class="card-text">{{ description1 }}</p>
-                                    <p class="card-text"><small class="text-muted">Start at: {{ start_at1 }} End at: {{ end_at1 }}</small></p>
-                                </div>
+<!--            for odd event length-->
+            {% if events | length % 2 != 0 and idx == events | length - 2 %}
+            <div class="row">
+                <div class="col-sm">
+                    <div class="card text-left mb-3 border-dark" style="max-width: 540px; min-width: 400px;">
+                        <div class="row no-gutters">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ event_name1 }}</h5>
+                                <p class="card-text"><small class="text-muted">City: {{ city_name1 }} Topic: {{ topic_name1 }}</small></p>
+                                <p class="card-text">{{ description1 }}</p>
+                                <p class="card-text"><small class="text-muted">Start at: {{ start_at1 }} End at: {{ end_at1 }}</small></p>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
             {% endif %}
             {% endfor %}
+            {% endif %}
         </div>
     </div>
 
