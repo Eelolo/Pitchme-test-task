@@ -1,4 +1,6 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect, url_for, flash
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import current_user, logout_user, login_user, login_required
 from .cities.functions import get_cities_data, get_cities_names
 from .cities.model import Cities
 from .events.functions import get_events_data
@@ -7,6 +9,8 @@ from .saved_filters.functions import get_saved_filters_data
 from .topics.functions import get_topics_data, get_topics_names
 from .topics.model import Topics
 from .users.functions import get_users_data
+from .users.model import Users
+from app import db
 
 
 main_bp = Blueprint('main', __name__)
@@ -16,6 +20,10 @@ main_bp = Blueprint('main', __name__)
 def index():
     cities_names = get_cities_names()
     topics_names = get_topics_names()
+
+    username = ''
+    if not current_user.is_anonymous:
+        username = current_user.name
 
     city_name = ''
     topic_name = ''
@@ -53,7 +61,7 @@ def index():
 
     return render_template(
         'index.html', cities_names=cities_names, topics_names=topics_names, events=events,
-        city_name=city_name, topic_name=topic_name, start_at=start_at, end_at=end_at
+        city_name=city_name, topic_name=topic_name, start_at=start_at, end_at=end_at, username=username
     )
 
 
@@ -73,3 +81,35 @@ def admin():
         users=users, cities=cities, topics=topics,
         events=events, saved_filters=saved_filters
     )
+
+
+auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
+
+
+@auth_bp.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        name = request.form.get('name')
+        password = request.form.get('password')
+        confirm_password = request.form.get('confirm-password')
+
+        user = Users.query.filter_by(email=email).first()
+
+        if user and user.email != '':
+            flash('Email address already exists')
+            return redirect(url_for('auth.signup'))
+
+        if password != confirm_password:
+            flash('Passwords do not match')
+            return redirect(url_for('auth.signup'))
+
+        if user.email != '':
+            new_user = Users(email=email, name=name, password=generate_password_hash(password, method='sha256'))
+
+            db.session.add(new_user)
+            db.session.commit()
+
+        return redirect(url_for('auth.login'))
+
+    return render_template('signup.html')
