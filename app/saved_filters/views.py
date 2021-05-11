@@ -3,12 +3,13 @@ from .functions import create_saved_filter, get_saved_filter, update_saved_filte
 from app.cities.functions import get_cities_ids
 from app.users.functions import get_users_ids
 from app.topics.functions import get_topics_ids
-from app.views import admin_bp
+from app.views import admin_bp, admin_login_required
 from datetime import datetime
 from app.validations import datetime_validation
 
 
 @admin_bp.route('/create_saved_filter/', methods=['GET', 'POST'])
+@admin_login_required
 def admin_create_saved_filter():
     topics_ids = get_topics_ids()
     cities_ids = get_cities_ids()
@@ -45,6 +46,7 @@ def admin_create_saved_filter():
 
 
 @admin_bp.route('/update_saved_filter/<saved_filter_id>/', methods=['GET', 'POST'])
+@admin_login_required
 def admin_update_saved_filter(saved_filter_id):
     topics_ids = get_topics_ids()
     cities_ids = get_cities_ids()
@@ -92,6 +94,7 @@ def admin_update_saved_filter(saved_filter_id):
 
 
 @admin_bp.route('/delete_saved_filter/<saved_filter_id>/')
+@admin_login_required
 def admin_delete_saved_filter(saved_filter_id):
     delete_saved_filter(saved_filter_id)
 

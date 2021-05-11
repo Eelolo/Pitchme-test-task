@@ -1,11 +1,12 @@
 from flask import request, render_template, redirect
 from werkzeug.security import generate_password_hash
 from .functions import create_user, get_user, update_user, delete_user
-from app.views import admin_bp
+from app.views import admin_bp, admin_login_required
 from app.validations import email_regex_validation, email_unique_validation
 
 
 @admin_bp.route('/create_user/', methods=['GET', 'POST'])
+@admin_login_required
 def admin_create_user():
     if request.method == 'POST':
         if request.form.get('submit-btn') == 'Create':
@@ -31,6 +32,7 @@ def admin_create_user():
 
 
 @admin_bp.route('/update_user/<user_id>/', methods=['GET', 'POST'])
+@admin_login_required
 def admin_update_user(user_id):
     user = get_user(user_id)
     data = user.id, user.name, user.email
@@ -43,13 +45,13 @@ def admin_update_user(user_id):
             confirm_password = request.form.get('confirm-password')
 
             if email_regex_validation(email):
-                email = email_unique_validation(email)
+                email = email_unique_validation(email, user.email)
             else:
                 email = False
 
             if name and email:
                 if password and password == confirm_password:
-                    password = generate_password_hash(password)
+                    password = generate_password_hash(password, method='sha256')
                     update_user(user_id, name=name, email=email, password=password)
                 else:
                     update_user(user_id, name=name, email=email)
@@ -62,6 +64,7 @@ def admin_update_user(user_id):
 
 
 @admin_bp.route('/delete_user/<user_id>/')
+@admin_login_required
 def admin_delete_user(user_id):
     delete_user(user_id)
 

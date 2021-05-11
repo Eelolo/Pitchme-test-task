@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
+from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import current_user, logout_user, login_user, login_required
+from flask_login import current_user, logout_user, login_user, login_required, user_logged_in
 from .cities.functions import get_cities_data, get_cities_names
 from .cities.model import Cities
 from .events.functions import get_events_data
@@ -11,6 +12,7 @@ from .topics.model import Topics
 from .users.functions import get_users_data
 from .users.model import Users
 from .admins.functions import get_admins_data
+from .admins.model import Admins
 from app import db
 
 
@@ -69,7 +71,20 @@ def index():
 admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
 
 
+def admin_login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not current_user.is_authenticated:
+
+            return redirect(url_for('admin.admin_login', next=request.url))
+
+        return f(*args, **kwargs)
+
+    return decorated_function
+
+
 @admin_bp.route('/')
+@admin_login_required
 def admin():
     users = get_users_data()
     admins = get_admins_data()
@@ -83,6 +98,29 @@ def admin():
         users=users, admins=admins, cities=cities, topics=topics,
         events=events, saved_filters=saved_filters
     )
+
+
+@admin_bp.route('/login', methods=['GET', 'POST'])
+def admin_login():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+        remember = True if request.form.get('remember') else False
+
+        user = Users.query.filter_by(email=email).first()
+
+        if not user or not check_password_hash(user.password, password):
+            flash('Please check your login details and try again')
+            return redirect(url_for('admin.admin_login'))
+
+        if Admins.query.filter_by(user_id=user.id).all():
+            login_user(user, remember=remember)
+            return redirect(url_for('admin.admin'))
+        else:
+            flash('You are not admin user')
+            return redirect(url_for('admin.admin_login'))
+
+    return render_template('login.html')
 
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')

@@ -2,12 +2,13 @@ from flask import request, render_template, redirect
 from .functions import create_event, get_event, update_event, delete_event
 from app.cities.functions import get_cities_ids
 from app.topics.functions import get_topics_ids
-from app.views import admin_bp
+from app.views import admin_bp, admin_login_required
 from datetime import datetime
 from app.validations import datetime_validation
 
 
 @admin_bp.route('/create_event/', methods=['GET', 'POST'])
+@admin_login_required
 def admin_create_event():
     cities_ids = get_cities_ids()
     topics_ids = get_topics_ids()
@@ -38,6 +39,7 @@ def admin_create_event():
 
 
 @admin_bp.route('/update_event/<event_id>/', methods=['GET', 'POST'])
+@admin_login_required
 def admin_update_event(event_id):
     event = get_event(event_id)
     start_at = event.start_at.strftime("%Y-%m-%d %H:%M")
@@ -77,6 +79,7 @@ def admin_update_event(event_id):
 
 
 @admin_bp.route('/delete_event/<event_id>/')
+@admin_login_required
 def admin_delete_event(event_id):
     delete_event(event_id)
 

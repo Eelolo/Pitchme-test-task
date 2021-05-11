@@ -11,10 +11,11 @@ def email_regex_validation(string):
     return string
 
 
-def email_unique_validation(string):
+def email_unique_validation(string, last_email):
     try:
         Users.query.filter_by(email=string).one()
-        string = False
+        if string != last_email:
+            string = False
     except NoResultFound:
         pass
 
