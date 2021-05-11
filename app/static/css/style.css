@@ -91,7 +91,8 @@ table td {
 .username {
     width: 200px;
     height: 35px;
-
+    font-size: 25px;
+    text-color: white;
     display: flex;
     align-items: center;
     justify-content: center;

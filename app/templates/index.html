@@ -24,7 +24,7 @@
             </div>
             {% else %}
             <div class="loginsignup">
-                <span class="badge badge-light username">{{ username }}</span>
+                <span class="badge-dark username">{{ username }}</span>
                 <form action="{{ url_for('auth.logout') }}">
                     <input type="submit" class="btn btn-light btn-outline-dark" value="Logout">
                 </form>
