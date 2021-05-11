@@ -21,10 +21,10 @@ def get_events_data():
     events = []
     for event in data:
         events.append(
-            (
+            [
                 event.id, event.name, event.description, event.start_at,
                 event.end_at, event.topic_id, event.city_id
-            )
+            ]
         )
 
     return events

@@ -43,6 +43,11 @@ def get_cities_names():
 
     return names
 
+def get_city_name(city_id):
+    city = Cities.query.filter_by(id=city_id).one()
+
+    return city.name
+
 def update_city(city_id, **kwargs):
     city = get_city(city_id)
 

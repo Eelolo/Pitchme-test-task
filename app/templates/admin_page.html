@@ -170,6 +170,9 @@
             </thead>
             <tbody>
             {% for id, event, description, start_at, end_at, topic_id, city_id in events %}
+                {% if description | length > 45 %}
+                {% set description = description[0:40] + "..." %}
+                {% endif %}
                 <tr>
                     <th scope="row">{{ id }}</th>
                     <td scope="row">{{ event }}</td>

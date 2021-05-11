@@ -20,7 +20,7 @@ def get_topics_data():
 
     topics = []
     for topic in data:
-        topics.append((topic.id, topic.name))
+        topics.append([topic.id, topic.name])
 
     return topics
 
@@ -42,6 +42,11 @@ def get_topics_names():
         names.append(topic.name)
 
     return names
+
+def get_topic_name(topic_id):
+    topic = Topics.query.filter_by(id=topic_id).one()
+
+    return topic.name
 
 def update_topic(topic_id, **kwargs):
     topic = get_topic(topic_id)
