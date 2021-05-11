@@ -10,6 +10,7 @@ class Users(UserMixin, db.Model):
 
     saved_filters = db.relationship('SavedFilters', backref='user')
     admins = db.relationship('Admins', backref='user')
+    messages = db.relationship('Messages', backref='user')
 
     def __init__(self, name, email, password):
         self.name = name
@@ -18,3 +19,17 @@ class Users(UserMixin, db.Model):
 
     def __repr__(self):
         return f"<User {self.email}>"
+
+
+class Messages(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    message = db.Column(db.String(500))
+
+    def __init__(self, user_id, message):
+        self.user_id = user_id
+        self.message = message
+
+    def __repr__(self):
+        return f"<Message {self.id}>"
+

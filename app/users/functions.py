@@ -1,5 +1,5 @@
 from app import db
-from .model import Users
+from .model import Users, Messages
 
 
 def get_users_data():
@@ -46,4 +46,11 @@ def delete_user(user_id):
     user = get_user(user_id)
 
     db.session.delete(user)
+    db.session.commit()
+
+
+def create_message(user_id, message):
+    message = Messages(user_id, message)
+
+    db.session.add(message)
     db.session.commit()
