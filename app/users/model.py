@@ -9,6 +9,7 @@ class Users(UserMixin, db.Model):
     password = db.Column(db.String(500), nullable=True)
 
     saved_filters = db.relationship('SavedFilters', backref='user')
+    admins = db.relationship('Admins', backref='user')
 
     def __init__(self, name, email, password):
         self.name = name

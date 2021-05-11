@@ -59,6 +59,50 @@
     </div>
     <div class="container">
         <div class="table-name">
+            <h3>Admins</h3>
+        </div>
+        <div class="table-name">
+            <button type="button" class="btn btn-outline-dark  btn-sm" data-toggle="collapse" data-target="#collapse-admins">
+                Hide/Show
+            </button>
+        </div>
+        <table class="table collapse in" id="collapse-admins">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">User_id</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for id, user_id in admins %}
+                <tr>
+                    <th scope="row">{{ id }}</th>
+                    <td scope="row">{{ user_id }}</td>
+                    <td>
+                        <form action="update_admin/{{ id }}/">
+                            <input type="submit" class="btn btn-outline-dark btn-sm" value="Update">
+                        </form>
+                        <form action="delete_admin/{{ id }}/">
+                            <input type="submit" class="btn btn-outline-dark btn-sm" value="Delete">
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3">
+                        <form action="create_admin/">
+                            <input type="submit" class="btn btn-outline-dark" value="Create">
+                        </form>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="container">
+        <div class="table-name">
             <h3>Cities</h3>
         </div>
         <div class="table-name">

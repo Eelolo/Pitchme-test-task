@@ -36,6 +36,9 @@ def create_app():
     from .views import auth_bp
     app.register_blueprint(auth_bp)
 
+    from .admins.views import admin_bp
+    app.register_blueprint(admin_bp)
+
     db.init_app(app)
 
     from .users.model import Users

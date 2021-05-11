@@ -10,6 +10,7 @@ from .topics.functions import get_topics_data, get_topics_names
 from .topics.model import Topics
 from .users.functions import get_users_data
 from .users.model import Users
+from .admins.functions import get_admins_data
 from app import db
 
 
@@ -71,6 +72,7 @@ admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
 @admin_bp.route('/')
 def admin():
     users = get_users_data()
+    admins = get_admins_data()
     cities = get_cities_data()
     topics = get_topics_data()
     events = get_events_data()
@@ -78,7 +80,7 @@ def admin():
 
     return render_template(
         'admin_page.html',
-        users=users, cities=cities, topics=topics,
+        users=users, admins=admins, cities=cities, topics=topics,
         events=events, saved_filters=saved_filters
     )
 
