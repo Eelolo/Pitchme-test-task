@@ -85,4 +85,24 @@ table td {
     align-items: center;
     padding-left: 30%;
     padding-right: 30%;
+    padding-top: 3%
+}
+
+.username {
+    width: 200px;
+    height: 35px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginsignup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginsignup input {
+    margin-left: 15px;
 }

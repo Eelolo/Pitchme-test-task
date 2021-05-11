@@ -13,14 +13,29 @@
     <nav class="navbar navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="/">All events</a>
-            <form class="d-flex">
-                <button class="btn btn-light btn-outline-dark" type="submit">Login</button>
-                <button class="btn btn-light btn-outline-dark" type="submit">Register</button>
-            </form>
+            {% if not username %}
+            <div class="loginsignup">
+                <form action="{{ url_for('auth.login') }}">
+                    <input type="submit" class="btn btn-light btn-outline-dark" value="Login">
+                </form>
+                <form action="{{ url_for('auth.signup') }}">
+                    <input type="submit" class="btn btn-light btn-outline-dark" value="SignUp">
+                </form>
+            </div>
+            {% else %}
+            <div class="loginsignup">
+                <span class="badge badge-light username">{{ username }}</span>
+                <form action="{{ url_for('auth.logout') }}">
+                    <input type="submit" class="btn btn-light btn-outline-dark" value="Logout">
+                </form>
+            </div>
+            {% endif %}
         </div>
     </nav>
     <div class="container">
         <div class="saved-filters">
+
+        {% if username %}
             <form>
                 <div class="form-row">
                     <div class="col">
@@ -62,6 +77,8 @@
                 </div>
             </form>
         </div>
+    {% endif %}
+
     </div>
     <div class="container">
 
@@ -112,7 +129,9 @@
 
                     <div class="col">
                         <button class="btn btn-light btn-outline-dark btn-block" type="submit">Search</button>
+                    {% if username %}
                         <button class="btn btn-light btn-outline-dark btn-block" type="submit">Save Filters</button>
+                    {% endif %}
                     </div>
                 </div>
             </form>
