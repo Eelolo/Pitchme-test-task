@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="../static/css/style.css">
+
+    <title>Event page</title>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">All events</a>
+            {% if not username %}
+            <div class="loginsignup">
+                <form action="{{ url_for('auth.login') }}">
+                    <input type="submit" class="btn btn-light btn-outline-dark" value="Login">
+                </form>
+                <form action="{{ url_for('auth.signup') }}">
+                    <input type="submit" class="btn btn-light btn-outline-dark" value="SignUp">
+                </form>
+            </div>
+            {% else %}
+            <div class="loginsignup">
+                <span class="badge-dark username">{{ username }}</span>
+                <form action="{{ url_for('auth.logout') }}">
+                    <input type="submit" class="btn btn-light btn-outline-dark" value="Logout">
+                </form>
+            </div>
+            {% endif %}
+        </div>
+    </nav>
+    <div class="container">
+
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div>
+                        <div class="card-body">
+                            <p class="card-text topic-city">
+                                <p class="topic">Topic: <b>{{ topic_name }}</b></p>
+                                <p class="city">City: <b>{{ city_name }}</b></p>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                <h1 class="event-name">{{ name }}</h1>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text">
+                        <div class="row">
+                        <h2 class="card-title description">Description</h2>
+                        </div>
+                        <div class="row">
+                            <p class="event-description">{{ description }}</p>
+                        </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text start"><b>Start at: </b>{{ start_at }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text end"><b>End at: </b>{{ end_at }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h3 class="comments">Commentaries</h3>
+        <p class="info">Log in to view and write comments</p>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+</body>
+</html>

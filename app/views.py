@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import current_user, logout_user, login_user, login_required, user_logged_in
 from .cities.functions import get_cities_data, get_cities_names
 from .cities.model import Cities
-from .events.functions import get_events_data
+from .events.functions import get_events_data, get_event
 from .events.model import Events
 from .saved_filters.functions import (
     get_saved_filters_data, delete_saved_filter, get_saved_filter, create_saved_filter
@@ -233,3 +233,20 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('main.index'))
+
+
+
+@main_bp.route('/event_page/<event_id>')
+def event_page(event_id):
+    event = get_event(event_id)
+    name = event.name
+    description = event.description
+    start_at = datetime.strftime(event.start_at, "%Y-%m-%d %H:%M")
+    end_at = datetime.strftime(event.end_at, "%Y-%m-%d %H:%M")
+    topic_name = Topics.query.filter_by(id=event.topic_id).one().name
+    city_name = Cities.query.filter_by(id=event.city_id).one().name
+
+    return render_template(
+        'event_page.html', name=name, description=description, start_at=start_at,
+        end_at=end_at, topic_name=topic_name, city_name=city_name
+    )
