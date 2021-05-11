@@ -36,44 +36,27 @@
         <div class="saved-filters">
 
         {% if username %}
-            <form>
+            <form method="POST">
                 <div class="form-row">
+                    {% for filter in filters %}
+                    {% set filter_id = filter.id %}
                     <div class="col">
                         <div class="filter-set">
-                            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                            <button class="btn-sm btn-light btn-outline-dark btn-block" type="submit">FilterSet 2</button>
+                            <a href="{{ url_for('main.delete_f_set', f_set_id=filter_id) }}"><span class="closebtn">&times;</span></a>
+                            <form action="{{ url_for('main.index') }}" method="POST">
+                                <input type="submit" class="btn-sm btn-light btn-outline-dark btn-block" name='f_set' value="FilterSet {{ filter_id }}">
+                            </form>
                         </div>
                     </div>
+                    {% endfor %}
+                    {% for idx in range(6 - filters | length) %}
                     <div class="col">
-                        <div class="filter-set">
-                            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                            <button class="btn-sm btn-light btn-outline-dark btn-block" type="submit">FilterSet 2</button>
+                        <div class="filter-set" hidden>
+                            <a href="{{ url_for('main.index') }}"><span class="closebtn">&times;</span></a>
+                            <button class="btn-sm btn-light btn-outline-dark btn-block" type="submit">FilterSet {{ idx }}</button>
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="filter-set">
-                            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                            <button class="btn-sm btn-light btn-outline-dark btn-block" type="submit">FilterSet 2</button>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="filter-set">
-                            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                            <button class="btn-sm btn-light btn-outline-dark btn-block" type="submit">FilterSet 2</button>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="filter-set">
-                            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                            <button class="btn-sm btn-light btn-outline-dark btn-block" type="submit">FilterSet 2</button>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="filter-set">
-                            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                            <button class="btn-sm btn-light btn-outline-dark btn-block" type="submit">FilterSet 2</button>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </form>
         </div>
@@ -97,7 +80,7 @@
         {% endif %}
 
         <div class="filters-form">
-            <form method="POST">
+            <form action='{{ url_for("main.create_f_set") }}' method="POST">
                 <div class="form-row">
                     <div class="col">
                         <select class="form-control" id="city_name" name="city_select">
@@ -113,9 +96,9 @@
                         <select class="form-control" id="topic_name" name="topic_select">
 
                             <option selected="selected">{{ topic_name }}</option>
-                        {% for topic_name in topics_names %}
+                            {% for topic_name in topics_names %}
                             <option>{{ topic_name }}</option>
-                        {% endfor %}
+                            {% endfor %}
 
                         </select>
                     </div>
@@ -126,12 +109,19 @@
                     <div class="col">
                         <input type="text" class="form-control" id="start_to" name="end_at" placeholder="End at YYYY-m-d H:M" value="{{ end_at }}">
                     </div>
-
-                    <div class="col">
+                     <div class="col">
                         <button class="btn btn-light btn-outline-dark btn-block" type="submit">Search</button>
-                    {% if username %}
-                        <button class="btn btn-light btn-outline-dark btn-block" type="submit">Save Filters</button>
-                    {% endif %}
+                    </div>
+                    <div class='row'>
+                        <div class="col">
+                            {% if username %}
+
+                                <form action='{{ url_for("main.create_f_set") }}' method="POST">
+                                    <input type="submit" class="btn btn-light btn-outline-dark btn-block" name='save_filters' value="Save Filters">
+                                </form>
+
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </form>

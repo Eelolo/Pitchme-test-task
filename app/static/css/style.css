@@ -13,6 +13,12 @@
     float: left;
 }
 
+.saved-filters input {
+    width: 80% !important;
+    font-size: 15px;
+    float: left;
+}
+
 .closebtn {
     color: black;
     font-weight: bold;
