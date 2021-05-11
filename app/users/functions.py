@@ -49,8 +49,8 @@ def delete_user(user_id):
     db.session.commit()
 
 
-def create_message(user_id, message):
-    message = Messages(user_id, message)
+def create_message(user_id, event_id, message):
+    message = Messages(user_id, event_id, message)
 
     db.session.add(message)
     db.session.commit()

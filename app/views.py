@@ -11,8 +11,8 @@ from .saved_filters.functions import (
 )
 from .topics.functions import get_topics_data, get_topics_names
 from .topics.model import Topics
-from .users.functions import get_users_data
-from .users.model import Users
+from .users.functions import get_users_data, create_message
+from .users.model import Users, Messages
 from .admins.functions import get_admins_data
 from .admins.model import Admins
 from app import db
@@ -236,7 +236,7 @@ def logout():
 
 
 
-@main_bp.route('/event_page/<event_id>')
+@main_bp.route('/event_page/<event_id>', methods=['GET', 'POST'])
 def event_page(event_id):
     event = get_event(event_id)
     name = event.name
@@ -246,7 +246,21 @@ def event_page(event_id):
     topic_name = Topics.query.filter_by(id=event.topic_id).one().name
     city_name = Cities.query.filter_by(id=event.city_id).one().name
 
+    if current_user.is_authenticated:
+        user_name = current_user.name
+        messages = Messages.query.filter_by(event_id=event_id).all()
+    else:
+        user_name = ''
+        messages = ''
+
+    if request.method == 'POST':
+        message = request.form.get('message')
+
+        if message:
+            create_message(current_user.id, message)
+
     return render_template(
         'event_page.html', name=name, description=description, start_at=start_at,
-        end_at=end_at, topic_name=topic_name, city_name=city_name
+        end_at=end_at, topic_name=topic_name, city_name=city_name, user_name=user_name,
+        messages=messages
     )

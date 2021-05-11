@@ -23,11 +23,13 @@ class Users(UserMixin, db.Model):
 
 class Messages(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('Users.id'))
+    event_id = db.Column(db.Integer, db.ForeignKey('Events.id'))
     message = db.Column(db.String(500))
 
-    def __init__(self, user_id, message):
+    def __init__(self, user_id, event_id, message):
         self.user_id = user_id
+        self.event_id = event_id
         self.message = message
 
     def __repr__(self):
