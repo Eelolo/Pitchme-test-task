@@ -34,6 +34,14 @@ def get_topics_ids():
 
     return ids
 
+def get_topics_names():
+    data = Topics.query.all()
+
+    names = []
+    for topic in data:
+        names.append(topic.name)
+
+    return names
 
 def update_topic(topic_id, **kwargs):
     topic = get_topic(topic_id)

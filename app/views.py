@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template
-from .cities.functions import get_cities_data
+from .cities.functions import get_cities_data, get_cities_names
 from .events.functions import get_events_data
 from .saved_filters.functions import get_saved_filters_data
-from .topics.functions import get_topics_data
+from .topics.functions import get_topics_data, get_topics_names
 from .users.functions import get_users_data
 
 main_bp = Blueprint('main', __name__)
@@ -10,7 +10,13 @@ main_bp = Blueprint('main', __name__)
 
 @main_bp.route('/')
 def index():
-    return render_template('index.html')
+    cities_names = get_cities_names()
+    topics_names = get_topics_names()
+
+
+    return render_template(
+        'index.html', cities_names=cities_names, topics_names=topics_names
+    )
 
 
 admin_bp = Blueprint('admin', __name__, url_prefix='/admin')

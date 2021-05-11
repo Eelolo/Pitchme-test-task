@@ -10,6 +10,10 @@
     <title>Title</title>
 </head>
 <body>
+
+    {% set topic_name = topics_names.pop(0) %}
+    {% set city_name = cities_names.pop(0) %}
+
     <nav class="navbar navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="/">All events</a>
@@ -68,37 +72,38 @@
             <form>
                 <div class="form-row">
                     <div class="col">
-                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect1">
-                            <option selected>Choose...</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+
+                        <select class="form-control" id="city_name" name="city_select">
+
+                            <option selected="selected">{{ city_name }}</option>
+                        {% for city_name in cities_names %}
+                            <option>{{ city_name }}</option>
+                        {% endfor %}
+
                         </select>
+
+                    </div>
+
+                    <div class="col">
+
+                        <select class="form-control" id="topic_name" name="topic_select">
+
+                            <option selected="selected">{{ topic_name }}</option>
+                        {% for topic_name in topics_names %}
+                            <option>{{ topic_name }}</option>
+                        {% endfor %}
+
+                        </select>
+
+                    </div>
+
+                    <div class="col">
+                        <input type="text" class="form-control" id="start_from" name="start_to" placeholder="Start from YYYY-m-d H:M" value="{{ start_from }}">
                     </div>
                     <div class="col">
-                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect2">
-                            <option selected>Choose...</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
+                        <input type="text" class="form-control" id="start_to" name="start_to" placeholder="Start to YYYY-m-d H:M" value="{{ start_to }}">
                     </div>
-                    <div class="col">
-                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect3">
-                            <option selected>Choose...</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect4">
-                            <option selected>Choose...</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
-                    </div>
+
                     <div class="col">
                         <button class="btn btn-light btn-outline-dark btn-block" type="submit">Search</button>
                         <button class="btn btn-light btn-outline-dark btn-block" type="submit">Save Filters</button>

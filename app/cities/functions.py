@@ -34,6 +34,15 @@ def get_cities_ids():
 
     return ids
 
+def get_cities_names():
+    data = Cities.query.all()
+
+    names = []
+    for city in data:
+        names.append(city.name)
+
+    return names
+
 def update_city(city_id, **kwargs):
     city = get_city(city_id)
 
