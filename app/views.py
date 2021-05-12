@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import current_user, logout_user, login_user, login_required, user_logged_in
+from flask_login import current_user, logout_user, login_user, login_required
 from .cities.functions import get_cities_data, get_cities_names
 from .cities.model import Cities
 from .events.functions import get_events_data, get_event
@@ -11,8 +11,8 @@ from .saved_filters.functions import (
 )
 from .topics.functions import get_topics_data, get_topics_names
 from .topics.model import Topics
-from .users.functions import get_users_data, create_message
-from .users.model import Users, Messages
+from .users.functions import get_users_data, create_comment, get_event_comments
+from .users.model import Users
 from .admins.functions import get_admins_data
 from .admins.model import Admins
 from app import db
@@ -198,13 +198,13 @@ def signup():
             flash('Passwords do not match')
             return redirect(url_for('auth.signup'))
 
-        if user.email != '':
+        if user and user.email != '':
             new_user = Users(email=email, name=name, password=generate_password_hash(password, method='sha256'))
 
             db.session.add(new_user)
             db.session.commit()
 
-        return redirect(url_for('auth.login'))
+            return redirect(url_for('auth.login'))
 
     return render_template('signup.html')
 
@@ -235,7 +235,6 @@ def logout():
     return redirect(url_for('main.index'))
 
 
-
 @main_bp.route('/event_page/<event_id>', methods=['GET', 'POST'])
 def event_page(event_id):
     event = get_event(event_id)
@@ -248,19 +247,19 @@ def event_page(event_id):
 
     if current_user.is_authenticated:
         user_name = current_user.name
-        messages = Messages.query.filter_by(event_id=event_id).all()
+        comments = get_event_comments(event_id)
     else:
         user_name = ''
-        messages = ''
+        comments = ''
 
     if request.method == 'POST':
-        message = request.form.get('message')
+        comment = request.form.get('comment_area')
 
-        if message:
-            create_message(current_user.id, message)
+        if comment:
+            create_comment(current_user.id, event_id, comment)
 
     return render_template(
         'event_page.html', name=name, description=description, start_at=start_at,
         end_at=end_at, topic_name=topic_name, city_name=city_name, user_name=user_name,
-        messages=messages
+        comments=comments, event_id=event_id
     )

@@ -10,7 +10,7 @@ class Events(db.Model):
     topic_id = db.Column(db.Integer, db.ForeignKey('topics.id'))
     city_id = db.Column(db.Integer, db.ForeignKey('cities.id'))
 
-    messages = db.relationship('Messages', backref='event')
+    comments = db.relationship('Comments', backref='event')
 
     def __init__(self, name, description, start_at, end_at, topic_id, city_id):
         self.name = name

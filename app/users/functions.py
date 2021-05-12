@@ -1,5 +1,5 @@
 from app import db
-from .model import Users, Messages
+from .model import Users, Comments
 
 
 def get_users_data():
@@ -49,8 +49,18 @@ def delete_user(user_id):
     db.session.commit()
 
 
-def create_message(user_id, event_id, message):
-    message = Messages(user_id, event_id, message)
+def create_comment(user_id, event_id, comment):
+    comment = Comments(user_id, event_id, comment)
 
-    db.session.add(message)
+    db.session.add(comment)
     db.session.commit()
+
+
+def get_event_comments(event_id):
+    data = Comments.query.filter_by(event_id=event_id).all()
+
+    comments = []
+    for comment in data:
+        comments.append((comment.user.name, event_id, comment))
+
+    return comments

@@ -1,6 +1,6 @@
 from app import db
 from flask_login import UserMixin
-
+from app.events.model import Events
 
 class Users(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -10,7 +10,7 @@ class Users(UserMixin, db.Model):
 
     saved_filters = db.relationship('SavedFilters', backref='user')
     admins = db.relationship('Admins', backref='user')
-    messages = db.relationship('Messages', backref='user')
+    comments = db.relationship('Comments', backref='user')
 
     def __init__(self, name, email, password):
         self.name = name
@@ -21,17 +21,16 @@ class Users(UserMixin, db.Model):
         return f"<User {self.email}>"
 
 
-class Messages(db.Model):
+class Comments(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('Users.id'))
-    event_id = db.Column(db.Integer, db.ForeignKey('Events.id'))
-    message = db.Column(db.String(500))
+    user_id = db.Column(db.Integer, db.ForeignKey(Users.id))
+    event_id = db.Column(db.Integer, db.ForeignKey(Events.id))
+    comment = db.Column(db.String(500))
 
-    def __init__(self, user_id, event_id, message):
+    def __init__(self, user_id, event_id, comment):
         self.user_id = user_id
         self.event_id = event_id
-        self.message = message
+        self.comment = comment
 
     def __repr__(self):
-        return f"<Message {self.id}>"
-
+        return f"<Comment {self.id}>"

@@ -13,7 +13,7 @@
     <nav class="navbar navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="/">All events</a>
-            {% if not username %}
+            {% if not user_name %}
             <div class="loginsignup">
                 <form action="{{ url_for('auth.login') }}">
                     <input type="submit" class="btn btn-light btn-outline-dark" value="Login">
@@ -24,7 +24,7 @@
             </div>
             {% else %}
             <div class="loginsignup">
-                <span class="badge-dark username">{{ username }}</span>
+                <span class="badge-dark username">{{ user_name }}</span>
                 <form action="{{ url_for('auth.logout') }}">
                     <input type="submit" class="btn btn-light btn-outline-dark" value="Logout">
                 </form>
@@ -33,64 +33,54 @@
         </div>
     </nav>
     <div class="container">
-
-        <div class="row">
-            <div class="col">
-                <div class="card">
-                    <div>
-                        <div class="card-body">
-                            <p class="card-text topic-city">
-                                <p class="topic">Topic: <b>{{ topic_name }}</b></p>
-                                <p class="city">City: <b>{{ city_name }}</b></p>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <div>
-                        <div class="card-body">
-                            <p class="card-text">
-                                <h1 class="event-name">{{ name }}</h1>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div>
+            <h1>{{ name }}</h1>
+            <p class="topic"> <b>Topic:</b> {{ topic_name }}</p>
+            <p class="city"><b>City:</b> {{ city_name }}</p>
+            <h2 class="description">Description</h2>
+            <p class="event-description">{{ description }}</p>
+            <p class="start"><b>Start at: </b>{{ start_at }}</p>
+            <p class="end"><b>End at: </b>{{ end_at }}</p>
+            <h3 class="comments">Commentaries</h3>
         </div>
-        <div class="row">
+
+
+    <div class="container">
+
+        {% if not user_name %}
+        <p class="info">Log in to view and write comments</p>
+        {% endif %}
+
+        {% if comments%}
+        {% for comment in comments %}
+        {% set author = comment[0] %}
+        {% set text = comment[2].comment %}
+        <div class="container textarea comment">
             <div class="card">
                 <div class="card-body">
-                    <p class="card-text">
-                        <div class="row">
-                        <h2 class="card-title description">Description</h2>
-                        </div>
-                        <div class="row">
-                            <p class="event-description">{{ description }}</p>
-                        </div>
-                    </p>
+                    <h5 class="card-title">{{ author }}</h5>
+                    <p class="card-text">{{ text }}</p>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <p class="card-text start"><b>Start at: </b>{{ start_at }}</p>
-                    </div>
+        {% endfor %}
+        {% endif %}
+
+        {% if user_name%}
+        <form action="{{ url_for('main.event_page', event_id=event_id) }}" method="POST">
+            <div class="container textarea">
+                <div class="form-group">
+                    <textarea class="form-control" id="comment_area" name="comment_area" rows="3" placeholder="Enter your comment"></textarea>
                 </div>
             </div>
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <p class="card-text end"><b>End at: </b>{{ end_at }}</p>
-                    </div>
-                </div>
+
+            <div class="send-btn">
+                <input type="submit" class="btn btn-outline-dark" name="submit-btn" value="Send Comment">
             </div>
-        </div>
-        <h3 class="comments">Commentaries</h3>
-        <p class="info">Log in to view and write comments</p>
+        </form>
+
+        {% endif %}
+
     </div>
 
 
