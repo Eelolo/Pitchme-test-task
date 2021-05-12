@@ -127,15 +127,13 @@
             </form>
         </div>
         <div class="content">
-<!--            if there is one event-->
-<!--            after 9 hours of work on the project, I didn't know how to make it more beautiful :-)) -->
             {% if events | length == 1 %}
             <div class="row">
                 <div class="col-sm">
                     <div class="card text-left mb-3 border-dark" style="max-width: 540px; min-width: 400px;">
                         <div class="row no-gutters">
                             <div class="card-body">
-                                <h5 class="card-title">{{ events[0][1] }}</h5>
+                                <a class="card-title" href="{{ url_for('main.event_page', event_id=events[0][0]) }}"><h5 class="card-title">{{ events[0][1] }}</h5></a>
                                 <p class="card-text"><small class="text-muted">City: {{ events[0][6] }} Topic: {{ events[0][5] }}</small></p>
                                 <p class="card-text">{{ events[0][2] }}</p>
                                 <p class="card-text"><small class="text-muted">Start at: {{ events[0][3] }} End at: {{ events[0][4] }}</small></p>
@@ -167,7 +165,7 @@
                     <div class="card text-left mb-3 border-dark" style="max-width: 540px; min-width: 400px;">
                         <div class="row no-gutters">
                             <div class="card-body">
-                                <h5 class="card-title">{{ event_name0 }}</h5>
+                                <a href="{{ url_for('main.event_page', event_id=events[idx][0]) }}"><h5 class="card-title">{{ event_name0 }}</h5></a>
                                 <p class="card-text"><small class="text-muted">City: {{ city_name0 }} Topic: {{ topic_name0 }}</small></p>
                                 <p class="card-text">{{ description0 }}</p>
                                 <p class="card-text"><small class="text-muted">Start at: {{ start_at0 }} End at: {{ end_at0 }}</small></p>
@@ -179,7 +177,7 @@
                     <div class="card text-left mb-3 border-dark" style="max-width: 540px; min-width: 400px;">
                         <div class="row no-gutters">
                             <div class="card-body">
-                                <h5 class="card-title">{{ event_name1 }}</h5>
+                                <a href="{{ url_for('main.event_page', event_id=events[idx+1][0]) }}"><h5 class="card-title">{{ event_name1 }}</h5></a>
                                 <p class="card-text"><small class="text-muted">City: {{ city_name1 }} Topic: {{ topic_name1 }}</small></p>
                                 <p class="card-text">{{ description1 }}</p>
                                 <p class="card-text"><small class="text-muted">Start at: {{ start_at1 }} End at: {{ end_at1 }}</small></p>
@@ -189,14 +187,13 @@
                 </div>
             </div>
             {% endif %}
-<!--            for odd event length-->
             {% if events | length % 2 != 0 and idx == events | length - 2 %}
             <div class="row">
                 <div class="col-sm">
                     <div class="card text-left mb-3 border-dark" style="max-width: 540px; min-width: 400px;">
                         <div class="row no-gutters">
                             <div class="card-body">
-                                <h5 class="card-title">{{ event_name1 }}</h5>
+                                <a href="{{ url_for('main.event_page', event_id=events[idx+1][0]) }}"><h5 class="card-title">{{ event_name1 }}</h5></a>
                                 <p class="card-text"><small class="text-muted">City: {{ city_name1 }} Topic: {{ topic_name1 }}</small></p>
                                 <p class="card-text">{{ description1 }}</p>
                                 <p class="card-text"><small class="text-muted">Start at: {{ start_at1 }} End at: {{ end_at1 }}</small></p>
