@@ -17,6 +17,7 @@ from .admins.functions import get_admins_data
 from .admins.model import Admins
 from app import db
 from datetime import datetime
+from functions import prepare_f_set_for_view, prepare_to_create_f_set, filtered_event_query
 
 
 main_bp = Blueprint('main', __name__)
@@ -27,19 +28,13 @@ def index():
     cities_names = get_cities_names()
     topics_names = get_topics_names()
 
-    filters = ''
-    city_name = ''
-    topic_name = ''
-    start_at = ''
-    end_at = ''
-    username = ''
+    filters, city_name, topic_name, start_at, end_at, username = '', '', '', '', '', ''
+
     if not current_user.is_anonymous:
         username = current_user.name
 
         user = Users.query.filter_by(id=current_user.id).one()
         filters = list(user.saved_filters)
-
-
 
     query = Events.query
 
@@ -47,15 +42,20 @@ def index():
         if request.form.get('f_set'):
             f_set_id = int(request.form.get('f_set').split(' ')[-1])
             s_f = get_saved_filter(f_set_id)
-            city_name = Cities.query.filter_by(id=s_f.city_id).one().name
-            topic_name = Topics.query.filter_by(id=s_f.topic_id).one().name
-            start_at = datetime.strftime(s_f.start_from, "%Y-%m-%d %H:%M")
-            end_at = datetime.strftime(s_f.start_to, "%Y-%m-%d %H:%M")
+            city_name, topic_name, start_at, end_at = prepare_f_set_for_view(s_f)
         else:
             city_name = request.form.get('city_select')
             topic_name = request.form.get('topic_select')
             start_at = request.form.get('start_at')
             end_at = request.form.get('end_at')
+
+        if request.form.get('save_filters'):
+            values = prepare_to_create_f_set(city_name, topic_name, start_at, end_at)
+            city_id, topic_id, start_at, end_at = values
+
+            if current_user.id and city_id or topic_id or start_at or end_at:
+                create_saved_filter(current_user.id, start_at, end_at, city_id, topic_id)
+                filters = list(user.saved_filters)
 
         if city_name == "Choose city name":
             city_name = ''
@@ -63,18 +63,8 @@ def index():
         if topic_name == "Choose topic name":
             topic_name = ''
 
-        if city_name:
-            query = query.filter_by(city_id=Cities.query.filter_by(name=city_name).one().id)
-
-        if topic_name:
-            query = query.filter_by(topic_id=Topics.query.filter_by(name=topic_name).one().id)
-
-        if start_at and end_at:
-            query = query.filter(Events.start_at >= start_at).filter(Events.end_at <= end_at)
-        elif end_at:
-            query = query.filter(Events.end_at <= end_at)
-        elif start_at:
-            query = query.filter(Events.start_at >= start_at)
+        if request.form.get('search'):
+            query = filtered_event_query(query, city_name, topic_name, start_at, end_at)
 
     events = get_events_data(ids_or_names='names', events=query.all())
 
@@ -84,43 +74,13 @@ def index():
     )
 
 
-@main_bp.route('/create_f_set/', methods=['POST'])
-@login_required
-def create_f_set():
-    city_name = request.form.get('city_select')
-    topic_name = request.form.get('topic_select')
-
-    if city_name and city_name != "Choose city name":
-        city_id = Cities.query.filter_by(name=city_name).one().id
-    else:
-        city_id = None
-
-    if topic_name and topic_name != "Choose topic name":
-        topic_id = Topics.query.filter_by(name=topic_name).one().id
-    else:
-        topic_id = None
-
-    start_at = request.form.get('start_at')
-    end_at = request.form.get('end_at')
-    try:
-        start_at = datetime.strptime(start_at, "%Y-%m-%d %H:%M")
-        end_at = datetime.strptime(end_at, "%Y-%m-%d %H:%M")
-    except ValueError:
-        start_at = None
-        end_at = None
-
-    if current_user.id and city_id and topic_id and start_at and end_at:
-        create_saved_filter(current_user.id, start_at, end_at, city_id, topic_id)
-
-    return redirect(url_for('main.index'))
-
-
 @main_bp.route('/delete_f_set/<f_set_id>/')
 @login_required
 def delete_f_set(f_set_id):
     delete_saved_filter(f_set_id)
 
     return redirect(url_for('main.index'))
+
 
 admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
 
