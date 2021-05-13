@@ -212,6 +212,9 @@ def signup():
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
+        if request.form.get('cancel-btn'):
+            return redirect(url_for('main.index'))
+
         email = request.form.get('email')
         password = request.form.get('password')
         remember = True if request.form.get('remember') else False
