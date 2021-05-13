@@ -183,6 +183,9 @@ auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 @auth_bp.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
+        if request.form.get('cancel-btn'):
+            return redirect(url_for('main.index'))
+
         email = request.form.get('email')
         name = request.form.get('name')
         password = request.form.get('password')
