@@ -1,4 +1,4 @@
-from flask import request, render_template, redirect
+from flask import request, render_template, redirect, flash
 from werkzeug.security import generate_password_hash
 from .functions import create_user, get_user, update_user, delete_user
 from app.views import admin_bp, admin_login_required
@@ -16,9 +16,12 @@ def admin_create_user():
             confirm_password = request.form.get('confirm-password')
 
             if email_regex_validation(email):
-                email = email_unique_validation(email)
+                email = email_unique_validation(email, '')
+                if not email:
+                    flash('Email address already exists')
             else:
                 email = False
+                flash('Email regex check failed')
 
             if name and email and password and password == confirm_password:
                 password = generate_password_hash(password)
@@ -46,8 +49,11 @@ def admin_update_user(user_id):
 
             if email_regex_validation(email):
                 email = email_unique_validation(email, user.email)
+                if not email:
+                    flash('Email address already exists')
             else:
                 email = False
+                flash('Email regex check failed')
 
             if name and email:
                 if password and password == confirm_password:

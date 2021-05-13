@@ -1,4 +1,4 @@
-from flask import request, render_template, redirect
+from flask import request, render_template, redirect, flash
 from .functions import create_event, get_event, update_event, delete_event
 from app.cities.functions import get_cities_ids
 from app.topics.functions import get_topics_ids
@@ -27,10 +27,12 @@ def admin_create_event():
                 end_at = datetime.strptime(end_at, "%Y-%m-%d %H:%M")
             else:
                 start_at, end_at = False, False
+                flash('Datetime check failed')
 
             if name and description and start_at and end_at and city_id and topic_id:
                 create_event(name, description, start_at, end_at, topic_id, city_id)
             else:
+                flash('Сheck event name, description and try again')
                 return render_template('event_form.html', topics_ids=topics_ids, cities_ids=cities_ids)
 
         return redirect('/admin')
@@ -62,6 +64,8 @@ def admin_update_event(event_id):
                 end_at = datetime.strptime(end_at, "%Y-%m-%d %H:%M")
             else:
                 start_at, end_at = False, False
+                flash('Datetime check failed')
+
 
             if name and description and start_at and end_at and topic_id and city_id:
                     update_event(
@@ -69,6 +73,7 @@ def admin_update_event(event_id):
                         end_at=end_at, topic_id=topic_id, city_id=city_id
                     )
             else:
+                flash('Сheck event name, description and try again')
                 return render_template(
                     'event_form.html', data=data, topics_ids=topics_ids, cities_ids=cities_ids
                 )

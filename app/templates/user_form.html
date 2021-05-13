@@ -29,6 +29,14 @@
 
     <h1>{{ header }}</h1>
 
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="model-form alert alert-danger" role="alert">
+            {{ messages[0] }}
+        </div>
+    {% endif %}
+    {% endwith %}
+
     <form class="model-form" method="POST">
         <div class="form-group">
             <label for="name">Name</label>

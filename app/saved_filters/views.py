@@ -1,4 +1,4 @@
-from flask import request, render_template, redirect
+from flask import request, render_template, redirect, flash
 from .functions import create_saved_filter, get_saved_filter, update_saved_filter, delete_saved_filter
 from app.cities.functions import get_cities_ids
 from app.users.functions import get_users_ids
@@ -28,6 +28,7 @@ def admin_create_saved_filter():
                 start_to = datetime.strptime(start_to, "%Y-%m-%d %H:%M")
             else:
                 start_from, start_to = False, False
+                flash('Datetime check failed')
 
             if start_from and start_to:
                 create_saved_filter(user_id, start_from, start_to, city_id, topic_id)
@@ -73,6 +74,7 @@ def admin_update_saved_filter(saved_filter_id):
                 start_to = datetime.strptime(start_to, "%Y-%m-%d %H:%M")
             else:
                 start_from, start_to = False, False
+                flash('Datetime check failed')
 
             if user_id and start_from and start_to:
                     update_saved_filter(
