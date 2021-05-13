@@ -35,6 +35,8 @@
 
 .content {
     float: left;
+    max-width: 100%;
+    min-width: 100%;
 }
 
 .filters-form {
@@ -154,4 +156,8 @@ table td {
 
 .event-link {
     color: black;
+}
+
+.card {
+    display: flex;
 }
