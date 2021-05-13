@@ -35,6 +35,8 @@ def admin_create_event():
                 flash('Сheck event name, description and try again')
                 return render_template('event_form.html', topics_ids=topics_ids, cities_ids=cities_ids)
 
+            flash(f'Event {name} created')
+
         return redirect('/admin')
 
     return render_template('event_form.html', topics_ids=topics_ids, cities_ids=cities_ids)
@@ -78,6 +80,8 @@ def admin_update_event(event_id):
                     'event_form.html', data=data, topics_ids=topics_ids, cities_ids=cities_ids
                 )
 
+            flash(f'Event {name} updated')
+
         return redirect('/admin')
 
     return render_template('event_form.html', data=data, topics_ids=topics_ids, cities_ids=cities_ids)
@@ -86,6 +90,8 @@ def admin_update_event(event_id):
 @admin_bp.route('/delete_event/<event_id>/')
 @admin_login_required
 def admin_delete_event(event_id):
+    event = get_event(event_id)
     delete_event(event_id)
 
+    flash(f'Event {event.name} deleted')
     return redirect('/admin')

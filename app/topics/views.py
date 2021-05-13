@@ -1,4 +1,4 @@
-from flask import request, render_template, redirect
+from flask import request, render_template, redirect, flash
 from .functions import create_topic, get_topic, update_topic, delete_topic
 from app.views import admin_bp, admin_login_required
 
@@ -13,6 +13,7 @@ def admin_create_topic():
             if name:
                 create_topic(name)
 
+            flash(f'Topic {name} created')
         return redirect('/admin')
 
     return render_template('topic_form.html')
@@ -31,6 +32,7 @@ def admin_update_topic(topic_id):
             if name:
                 update_topic(topic_id, name=name)
 
+        flash(f'Topic {data[1]} updated')
         return redirect('/admin')
 
     return render_template('topic_form.html', data=data)
@@ -39,6 +41,8 @@ def admin_update_topic(topic_id):
 @admin_bp.route('/delete_topic/<topic_id>/')
 @admin_login_required
 def admin_delete_topic(topic_id):
+    topic = get_topic(topic_id)
     delete_topic(topic_id)
 
+    flash(f'Topic {topic.name} deleted')
     return redirect('/admin')

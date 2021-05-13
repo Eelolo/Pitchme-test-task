@@ -38,6 +38,8 @@ def admin_create_saved_filter():
                     cities_ids=cities_ids, users_ids=users_ids
                 )
 
+            flash(f'Saved_filter for user id={user_id} created')
+
         return redirect('/admin')
 
     return render_template(
@@ -87,6 +89,8 @@ def admin_update_saved_filter(saved_filter_id):
                     cities_ids=cities_ids, users_ids=users_ids
                 )
 
+            flash(f'Saved_filter id={saved_filter.id} updated')
+
         return redirect('/admin')
 
     return render_template(
@@ -98,6 +102,8 @@ def admin_update_saved_filter(saved_filter_id):
 @admin_bp.route('/delete_saved_filter/<saved_filter_id>/')
 @admin_login_required
 def admin_delete_saved_filter(saved_filter_id):
+    saved_filter = get_saved_filter(saved_filter_id)
     delete_saved_filter(saved_filter_id)
 
+    flash(f'Saved_filter id={saved_filter.id} deleted')
     return redirect('/admin')

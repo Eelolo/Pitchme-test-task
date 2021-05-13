@@ -29,6 +29,7 @@ def admin_create_user():
             else:
                 return render_template('user_form.html')
 
+            flash(f'User {name} created')
         return redirect('/admin')
 
     return render_template('user_form.html')
@@ -64,6 +65,7 @@ def admin_update_user(user_id):
             else:
                 return render_template('user_form.html', data=data)
 
+            flash(f'User {data[1]} updated')
         return redirect('/admin')
 
     return render_template('user_form.html', data=data)
@@ -72,6 +74,8 @@ def admin_update_user(user_id):
 @admin_bp.route('/delete_user/<user_id>/')
 @admin_login_required
 def admin_delete_user(user_id):
+    user = get_user(user_id)
     delete_user(user_id)
 
+    flash(f'User {user.name} deleted')
     return redirect('/admin')

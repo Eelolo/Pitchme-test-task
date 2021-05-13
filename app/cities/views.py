@@ -1,4 +1,4 @@
-from flask import request, render_template, redirect
+from flask import request, render_template, redirect, flash
 from .functions import create_city, get_city, update_city, delete_city
 from app.views import admin_bp, admin_login_required
 
@@ -12,6 +12,8 @@ def admin_create_city():
 
             if name:
                 create_city(name)
+
+            flash(f'City {name} created')
 
         return redirect('/admin')
 
@@ -31,6 +33,8 @@ def admin_update_city(city_id):
             if name:
                 update_city(city_id, name=name)
 
+            flash(f'City {data[1]} updated')
+
         return redirect('/admin')
 
     return render_template('city_form.html', data=data)
@@ -39,6 +43,8 @@ def admin_update_city(city_id):
 @admin_bp.route('/delete_city/<city_id>/')
 @admin_login_required
 def admin_delete_city(city_id):
+    city = get_city(city_id)
     delete_city(city_id)
 
+    flash(f'City {city.name} deleted')
     return redirect('/admin')
