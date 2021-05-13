@@ -151,3 +151,7 @@ table td {
     border-width: 2px;
     border-color: black;
 }
+
+.event-link {
+    color: black;
+}

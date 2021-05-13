@@ -131,7 +131,7 @@
                     <div class="card text-left mb-3 border-dark" style="max-width: 540px; min-width: 400px;">
                         <div class="row no-gutters">
                             <div class="card-body">
-                                <a class="card-title" href="{{ url_for('main.event_page', event_id=events[0][0]) }}"><h5 class="card-title">{{ events[0][1] }}</h5></a>
+                                <a class="event-link" href="{{ url_for('main.event_page', event_id=events[0][0]) }}"><h5 class="card-title">{{ events[0][1] }}</h5></a>
                                 <p class="card-text"><small class="text-muted">City: {{ events[0][6] }} Topic: {{ events[0][5] }}</small></p>
                                 <p class="card-text">{{ events[0][2] }}</p>
                                 <p class="card-text"><small class="text-muted">Start at: {{ events[0][3] }} End at: {{ events[0][4] }}</small></p>
@@ -163,7 +163,7 @@
                     <div class="card text-left mb-3 border-dark" style="max-width: 540px; min-width: 400px;">
                         <div class="row no-gutters">
                             <div class="card-body">
-                                <a href="{{ url_for('main.event_page', event_id=events[idx][0]) }}"><h5 class="card-title">{{ event_name0 }}</h5></a>
+                                <a href="{{ url_for('main.event_page', event_id=events[idx][0]) }}" class="event-link"><h5 class="card-title">{{ event_name0 }}</h5></a>
                                 <p class="card-text"><small class="text-muted">City: {{ city_name0 }} Topic: {{ topic_name0 }}</small></p>
                                 <p class="card-text">{{ description0 }}</p>
                                 <p class="card-text"><small class="text-muted">Start at: {{ start_at0 }} End at: {{ end_at0 }}</small></p>
@@ -175,7 +175,7 @@
                     <div class="card text-left mb-3 border-dark" style="max-width: 540px; min-width: 400px;">
                         <div class="row no-gutters">
                             <div class="card-body">
-                                <a href="{{ url_for('main.event_page', event_id=events[idx+1][0]) }}"><h5 class="card-title">{{ event_name1 }}</h5></a>
+                                <a href="{{ url_for('main.event_page', event_id=events[idx+1][0]) }}" class="event-link"><h5 class="card-title">{{ event_name1 }}</h5></a>
                                 <p class="card-text"><small class="text-muted">City: {{ city_name1 }} Topic: {{ topic_name1 }}</small></p>
                                 <p class="card-text">{{ description1 }}</p>
                                 <p class="card-text"><small class="text-muted">Start at: {{ start_at1 }} End at: {{ end_at1 }}</small></p>
@@ -191,7 +191,7 @@
                     <div class="card text-left mb-3 border-dark" style="max-width: 540px; min-width: 400px;">
                         <div class="row no-gutters">
                             <div class="card-body">
-                                <a href="{{ url_for('main.event_page', event_id=events[idx+1][0]) }}"><h5 class="card-title">{{ event_name1 }}</h5></a>
+                                <a href="{{ url_for('main.event_page', event_id=events[idx+1][0]) }}" class="event-link"><h5 class="card-title">{{ event_name1 }}</h5></a>
                                 <p class="card-text"><small class="text-muted">City: {{ city_name1 }} Topic: {{ topic_name1 }}</small></p>
                                 <p class="card-text">{{ description1 }}</p>
                                 <p class="card-text"><small class="text-muted">Start at: {{ start_at1 }} End at: {{ end_at1 }}</small></p>
