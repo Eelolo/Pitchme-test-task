@@ -27,7 +27,7 @@ pip install -r requirements.txt
 python manage.py
 ```
 
-#### How the test task, the project was whipped up. many points have been omitted, somewhere there is untidiness.  The project was completed in 5 days
+#### How the test task, the project was whipped up. many points have been omitted, somewhere there is untidiness. Only notifications to users by filters are not made  The project was completed in 5 days
 
 # Plan for revision
 
