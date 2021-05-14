@@ -2,8 +2,8 @@ from app import db
 from .model import Admins
 
 
-def create_admin(name):
-    admin = Admins(name)
+def create_admin(user_id):
+    admin = Admins(user_id)
 
     db.session.add(admin)
     db.session.commit()

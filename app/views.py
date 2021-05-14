@@ -17,7 +17,7 @@ from .admins.functions import get_admins_data
 from .admins.model import Admins
 from app import db
 from datetime import datetime
-from functions import prepare_f_set_for_view, prepare_to_create_f_set, filtered_event_query
+from .functions import prepare_f_set_for_view, prepare_to_create_f_set, filtered_event_query
 
 
 main_bp = Blueprint('main', __name__)

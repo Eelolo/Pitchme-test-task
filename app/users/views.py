@@ -24,7 +24,7 @@ def admin_create_user():
                 flash('Email regex check failed')
 
             if name and email and password and password == confirm_password:
-                password = generate_password_hash(password)
+                password = generate_password_hash(password, method='sha256')
                 create_user(name, email, password)
             else:
                 return render_template('user_form.html')
