@@ -21,10 +21,25 @@ Run from `${project_root}:
 ```
 pip install -r requirements.txt
 ```
-# To start it:
-### Run manage.py
+### Create the database:
 ```
-python manage.py
+python manage.py create-db
+```
+### To drop a database:
+```
+python manage.py drop-db
+```
+### Create admin:
+```
+python manage.py create-admin
+```
+### To load test database data:
+```
+python manage.py load-test-data
+```
+### To start it:
+```
+flask run
 ```
 
 #### How the test task, the project was whipped up. many points have been omitted, somewhere there is untidiness. Only notifications to users by filters are not made  The project was completed in 5 days
@@ -36,10 +51,8 @@ python manage.py
 - splitting html files into laconic templates  
 - removing a lot of logic from templates  
 - full form validation  
-- flashed messages  
 - changing hardcoded paths to url_for functions  
 - moving the project configuration to a separate place  
-- adding console commands  
 - adding notifications about new events by saved filters using websockets
 
 
