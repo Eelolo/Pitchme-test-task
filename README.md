@@ -26,6 +26,9 @@ pip install -r requirements.txt
 ```
 python manage.py
 ```
+
+#### How the test task, the project was whipped up. many points have been omitted, somewhere there is untidiness. Only notifications to users by filters are not made  The project was completed in 5 days
+
 # Plan for revision
 
 - elimination of bugs  
@@ -38,6 +41,9 @@ python manage.py
 - moving the project configuration to a separate place  
 - adding console commands  
 - adding notifications about new events by saved filters using websockets
+
+
+
 
 
 
