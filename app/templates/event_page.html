@@ -33,15 +33,35 @@
         </div>
     </nav>
     <div class="container">
-        <div>
-            <h1>{{ name }}</h1>
-            <p class="topic"> <b>Topic:</b> {{ topic_name }}</p>
-            <p class="city"><b>City:</b> {{ city_name }}</p>
-            <h2 class="description">Description</h2>
-            <p class="event-description">{{ description }}</p>
-            <p class="start"><b>Start at: </b>{{ start_at }}</p>
-            <p class="end"><b>End at: </b>{{ end_at }}</p>
-            <h3 class="comments">Commentaries</h3>
+        <div class="row d-flex justify-content-center">
+            <div class="col d-flex justify-content-center">
+                <h1>{{ name }}</h1>
+            </div>
+            <div class="col d-flex justify-content-center">
+                <p class="vert-cent"> <b>Topic:</b> {{ topic_name }}</p>
+            </div>
+            <div class="col d-flex justify-content-center">
+                <p class="vert-cent"><b>City:</b> {{ city_name }}</p>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <h2 >Description</h2>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <p style="text-align: center;">{{ description }}</p>
+        </div>
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <p class="vert-cent"><b>Start at: </b>{{ start_at }}</p>
+            </div>
+            <div class="col d-flex justify-content-center">
+                <p class="vert-cent"><b>End at: </b>{{ end_at }}</p>
+            </div>
+            <div class="col d-flex justify-content-center">
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <h3>Commentaries</h3>
         </div>
 
 
